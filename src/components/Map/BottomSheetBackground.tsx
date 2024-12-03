@@ -1,14 +1,12 @@
 import { BlurView } from 'expo-blur'
 import React from 'react'
-import { Platform, StyleSheet, View } from 'react-native'
+import { Platform, View } from 'react-native'
 import {
     UnistylesRuntime,
-    createStyleSheet,
-    useStyles,
+    StyleSheet
 } from 'react-native-unistyles'
 
 const BottomSheetBackground = (): JSX.Element => {
-    const { styles } = useStyles(stylesheet)
     const dark = UnistylesRuntime.themeName === 'dark'
     const darkIos = 'rgba(0, 0, 0, 0.55)'
     const lightIos = 'rgba(200, 200, 200, 0.3)'
@@ -32,7 +30,7 @@ const BottomSheetBackground = (): JSX.Element => {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     bottomSheet: {
         ...StyleSheet.absoluteFillObject,
         backgroundColor: theme.colors.background,

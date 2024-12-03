@@ -3,7 +3,7 @@ import { formatFriendlyTime } from '@/utils/date-utils'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Pressable, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import PlatformIcon from '../Universal/Icon'
 
@@ -16,7 +16,7 @@ const LibrarySlotRow = ({
 }): JSX.Element => {
     const { t } = useTranslation('common')
     const date = new Date()
-    const { styles } = useStyles(stylesheet)
+
     const availSeats = Object.values(item.resources).reduce(
         (acc, room) => acc + room.num_seats,
         0
@@ -92,7 +92,7 @@ const LibrarySlotRow = ({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     container: { flexDirection: 'column' },
     detailsContainer: {
         alignItems: 'flex-start',

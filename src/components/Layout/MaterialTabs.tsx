@@ -3,23 +3,18 @@ import Color from 'color'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Easing } from 'react-native'
-import {
-    UnistylesRuntime,
-    createStyleSheet,
-    useStyles,
-} from 'react-native-unistyles'
+import { StyleSheet, UnistylesRuntime } from 'react-native-unistyles'
 
 import MaterialBottomTabs from './MaterialTabbar'
 
 const MaterialTabs = (): JSX.Element => {
-    const { styles, theme: styleTheme } = useStyles(stylesheet)
     const { t } = useTranslation('navigation')
 
     return (
         <MaterialBottomTabs
             sceneAnimationEasing={Easing.ease}
-            activeColor={styleTheme.colors.text}
-            inactiveColor={styleTheme.colors.labelColor}
+            activeColor={styles.active.color}
+            inactiveColor={styles.inactive.color}
             activeIndicatorStyle={styles.indicator}
             barStyle={styles.barStyle}
             keyboardHidesNavigationBar={false}
@@ -131,30 +126,36 @@ const MaterialTabs = (): JSX.Element => {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     barStyle: {
         backgroundColor:
             UnistylesRuntime.themeName === 'dark'
                 ? Color(theme.colors.card)
-                      .mix(Color(theme.colors.primary), 0.04)
+                      .mix(Color(theme.colors.primary as string), 0.04)
                       .hex()
                 : Color(theme.colors.card)
-                      .mix(Color(theme.colors.primary), 0.1)
+                      .mix(Color(theme.colors.primary as string), 0.1)
                       .hex(),
     },
     indicator: {
         backgroundColor:
             UnistylesRuntime.themeName === 'dark'
                 ? Color(theme.colors.card)
-                      .mix(Color(theme.colors.primary), 0.06)
+                      .mix(Color(theme.colors.primary as string), 0.06)
                       .lighten(1.4)
                       .saturate(1)
                       .hex()
                 : Color(theme.colors.card)
-                      .mix(Color(theme.colors.primary), 0.3)
+                      .mix(Color(theme.colors.primary as string), 0.3)
                       .darken(0.05)
                       .saturate(0.1)
                       .hex(),
+    },
+    active: {
+        color: theme.colors.text,
+    },
+    inactive: {
+        color: theme.colors.labelColor,
     },
 }))
 

@@ -7,7 +7,7 @@ import '@react-navigation/elements'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Slot } from 'expo-router'
 import React from 'react'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const unstable_settings = {
@@ -15,7 +15,6 @@ export const unstable_settings = {
 }
 
 export default function Layout(): JSX.Element {
-    const { styles } = useStyles(stylesheet)
     if (typeof window === 'undefined') return <Slot />
 
     return (
@@ -31,7 +30,7 @@ export default function Layout(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     indicator: {
         backgroundColor: theme.colors.labelSecondaryColor,
     },

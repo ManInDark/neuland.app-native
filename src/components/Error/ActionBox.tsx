@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import { FeedbackButton, StatusButton } from './ActionButtons'
 
@@ -12,7 +12,6 @@ export default function StatusBox({
     error: Error
     crash: boolean
 }): JSX.Element {
-    const { styles } = useStyles(stylesheet)
     const { t } = useTranslation('common')
     return (
         <View style={styles.boxContainer}>
@@ -23,7 +22,7 @@ export default function StatusBox({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     boxContainer: {
         alignItems: 'center',
         backgroundColor: theme.colors.card,

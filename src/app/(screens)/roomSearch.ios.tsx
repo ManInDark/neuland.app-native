@@ -23,7 +23,7 @@ import { useRouter } from 'expo-router'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet, createUnistylesComponent } from 'react-native-unistyles'
 import { Picker, useBinding } from 'swiftui-react-native'
 
 const DURATIONS = [
@@ -45,8 +45,10 @@ const DURATIONS = [
 
 const ALL_BUILDINGS = [BUILDINGS_ALL, ...BUILDINGS]
 
+const StyledPicker = createUnistylesComponent(Picker, (theme) => ({
+    tint: theme.colors.primary,
+}))
 export default function AdvancedSearch(): JSX.Element {
-    const { styles, theme } = useStyles(stylesheet)
     const router = useRouter()
     const { t } = useTranslation('common')
 
@@ -149,7 +151,7 @@ export default function AdvancedSearch(): JSX.Element {
                             <DateTimePicker
                                 value={new Date(date + 'T' + time)}
                                 mode="date"
-                                accentColor={theme.colors.primary}
+                                accentColor={styles.accent.color}
                                 locale="de-DE"
                                 onChange={(_event, selectedDate) => {
                                     setDate(formatISODate(selectedDate))
@@ -175,7 +177,7 @@ export default function AdvancedSearch(): JSX.Element {
                                 value={new Date(date + 'T' + time)}
                                 mode="time"
                                 is24Hour={true}
-                                accentColor={theme.colors.primary}
+                                accentColor={styles.accent.color}
                                 locale="de-DE"
                                 minuteInterval={5}
                                 onChange={(_event, selectedDate) => {
@@ -189,16 +191,15 @@ export default function AdvancedSearch(): JSX.Element {
                                 {t('pages.rooms.options.duration')}
                             </Text>
 
-                            <Picker
+                            <StyledPicker
                                 selection={duration}
                                 pickerStyle="menu"
-                                tint={theme.colors.primary}
                                 offset={{ x: 15, y: 0 }}
                             >
                                 {DURATIONS.map((option) => (
                                     <Text key={option}>{option}</Text>
                                 ))}
-                            </Picker>
+                            </StyledPicker>
                         </View>
                         <Divider iosPaddingLeft={16} />
                         <View style={styles.optionsRow}>
@@ -206,16 +207,15 @@ export default function AdvancedSearch(): JSX.Element {
                                 {t('pages.rooms.options.building')}
                             </Text>
 
-                            <Picker
+                            <StyledPicker
                                 selection={building}
                                 pickerStyle="menu"
-                                tint={theme.colors.primary}
                                 offset={{ x: 20, y: 0 }}
                             >
                                 {ALL_BUILDINGS.map((option) => (
                                     <Text key={option}>{option}</Text>
                                 ))}
-                            </Picker>
+                            </StyledPicker>
                         </View>
                     </View>
                     {wasModified && isDateAndTimeEqualToStart() && (
@@ -282,7 +282,7 @@ export default function AdvancedSearch(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     adjustContainer: {
         alignContent: 'center',
         alignItems: 'center',
@@ -335,5 +335,8 @@ const stylesheet = createStyleSheet((theme) => ({
         fontWeight: 'normal',
         marginBottom: 4,
         textTransform: 'uppercase',
+    },
+    accent: {
+        color: theme.colors.primary,
     },
 }))

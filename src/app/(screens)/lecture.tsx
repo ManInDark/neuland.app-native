@@ -23,13 +23,13 @@ import moment from 'moment'
 import React, { useCallback, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Pressable, ScrollView, Share, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 import ViewShot, { captureRef } from 'react-native-view-shot'
 
 export default function TimetableDetails(): JSX.Element {
     const router = useRouter()
     const navigation = useNavigation()
-    const { styles } = useStyles(stylesheet)
+
     const { lecture: lectureParam } = useLocalSearchParams()
     const { t } = useTranslation('timetable')
     const lectureString = Array.isArray(lectureParam)
@@ -330,7 +330,7 @@ export default function TimetableDetails(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     dateRow: {
         alignItems: 'center',
         flex: 1,

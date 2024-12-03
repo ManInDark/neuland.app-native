@@ -7,12 +7,11 @@ import { useNavigation, useRouter } from 'expo-router'
 import React, { useLayoutEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform, ScrollView, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 export default function Licenses(): JSX.Element {
     const router = useRouter()
     const { t } = useTranslation(['settings'])
-    const { styles, theme } = useStyles(stylesheet)
     const numberRegex = /\d+(\.\d+)*/
     const atRegex = /(?:@)/gi
     const navigation = useNavigation()
@@ -27,9 +26,9 @@ export default function Licenses(): JSX.Element {
 
                 ...Platform.select({
                     android: {
-                        headerIconColor: theme.colors.text,
-                        hintTextColor: theme.colors.text,
-                        textColor: theme.colors.text,
+                        headerIconColor: styles.searchBar.color,
+                        hintTextColor: styles.searchBar.color,
+                        textColor: styles.searchBar.color,
                     },
                 }),
 
@@ -109,7 +108,7 @@ export default function Licenses(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     container: {
         paddingBottom: theme.margins.modalBottomMargin,
     },
@@ -130,5 +129,8 @@ const stylesheet = createStyleSheet((theme) => ({
         color: theme.colors.labelColor,
         fontSize: 12,
         textAlign: 'left',
+    },
+    searchBar: {
+        color: theme.colors.text,
     },
 }))

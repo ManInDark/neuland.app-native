@@ -1,20 +1,24 @@
 import React from 'react'
 import { ActivityIndicator, type ViewStyle } from 'react-native'
-import { useStyles } from 'react-native-unistyles'
+import { createUnistylesComponent } from 'react-native-unistyles'
 
 interface LoadingIndicatorProps {
+    color: string
     style?: ViewStyle
 }
 
-const LoadingIndicator = ({ style }: LoadingIndicatorProps): JSX.Element => {
-    const { theme } = useStyles()
-    return (
-        <ActivityIndicator
-            size="small"
-            color={theme.colors.primary}
-            style={style}
-        />
-    )
+const CustomActivityIndicator = ({
+    color,
+    style,
+}: LoadingIndicatorProps): JSX.Element => {
+    return <ActivityIndicator size="small" color={color} style={style} />
 }
+
+const LoadingIndicator = createUnistylesComponent(
+    CustomActivityIndicator,
+    (theme) => ({
+        color: theme.colors.primary,
+    })
+)
 
 export default LoadingIndicator

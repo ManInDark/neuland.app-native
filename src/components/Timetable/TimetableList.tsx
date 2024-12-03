@@ -20,9 +20,9 @@ import React, { useLayoutEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Pressable, SafeAreaView, SectionList, Text, View } from 'react-native'
 import {
+    StyleSheet,
     UnistylesRuntime,
-    createStyleSheet,
-    useStyles,
+    createUnistylesComponent,
 } from 'react-native-unistyles'
 
 import { HeaderLeft, HeaderRight } from './HeaderButtons'
@@ -49,7 +49,6 @@ export default function TimetableList({
     const navigation = useNavigation()
     const listRef = useRef<SectionList<FriendlyTimetableEntry>>(null)
     const { t } = useTranslation('timetable')
-    const { styles, theme } = useStyles(stylesheet)
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -120,9 +119,34 @@ export default function TimetableList({
         return <View style={styles.sectionFooter} />
     }
 
-    function renderItemSeparator(): JSX.Element {
-        return <Divider color={theme.colors.border} iosPaddingLeft={16} />
-    }
+    const StyledDivider = createUnistylesComponent(Divider, (theme) => ({
+        color: theme.colors.border,
+        iosPaddingLeft: 16,
+    }))
+    const TimtableLinearGradient = createUnistylesComponent(
+        LinearGradient,
+        (theme) => ({
+            colors: [
+                theme.colors.primary,
+                getLineColor(theme.colors.primary as string),
+            ] as [string, string],
+            start: [0, 0.9] as [number, number],
+            end: [0.7, 0.25] as [number, number],
+        })
+    )
+
+    const ExamLinearGradient = createUnistylesComponent(
+        LinearGradient,
+        (theme) => ({
+            colors: [
+                inverseColor(theme.colors.primary as string),
+                getLineColor(inverseColor(theme.colors.primary as string)),
+            ] as [string, string],
+            start: [0, 0.9] as [number, number],
+            end: [0.7, 0.25] as [number, number],
+        })
+    )
+
     function renderTimetableItem({
         item,
     }: {
@@ -145,13 +169,7 @@ export default function TimetableList({
                     style={styles.pressable}
                 >
                     <View style={styles.eventWrapper}>
-                        <LinearGradient
-                            colors={[
-                                theme.colors.primary,
-                                getLineColor(theme.colors.primary),
-                            ]}
-                            start={[0, 0.9]}
-                            end={[0.7, 0.25]}
+                        <TimtableLinearGradient
                             style={{
                                 ...styles.indicator,
                             }}
@@ -200,17 +218,7 @@ export default function TimetableList({
                     style={styles.pressable}
                 >
                     <View style={styles.eventWrapper}>
-                        <LinearGradient
-                            colors={[
-                                inverseColor(theme.colors.primary),
-                                getLineColor(
-                                    inverseColor(theme.colors.primary)
-                                ),
-                            ]}
-                            start={[0, 0.9]}
-                            end={[0.7, 0.25]}
-                            style={styles.indicator}
-                        />
+                        <ExamLinearGradient style={styles.indicator} />
                         <View style={styles.nameView}>
                             <Text style={styles.titleText} numberOfLines={2}>
                                 {t('cards.calendar.exam', {
@@ -267,7 +275,7 @@ export default function TimetableList({
                         return renderSectionHeader(title)
                     }}
                     renderSectionFooter={renderSectionFooter}
-                    ItemSeparatorComponent={renderItemSeparator}
+                    ItemSeparatorComponent={StyledDivider}
                     contentContainerStyle={styles.container}
                     stickySectionHeadersEnabled={true}
                     initialNumToRender={20}
@@ -277,7 +285,7 @@ export default function TimetableList({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     container: {
         paddingBottom: 80,
         paddingHorizontal: theme.margins.page,

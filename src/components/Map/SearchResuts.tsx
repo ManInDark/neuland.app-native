@@ -6,7 +6,7 @@ import { type FeatureCollection } from 'geojson'
 import React, { useContext, useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert, Platform, SectionList, Text } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import Divider from '../Universal/Divider'
 import { PreferencesContext } from '../contexts'
@@ -21,7 +21,6 @@ const SearchResults: React.FC<SearchResultsProps> = ({
     handlePresentModalPress,
     allRooms,
 }) => {
-    const { styles } = useStyles(stylesheet)
     const { t, i18n } = useTranslation('common')
     const { searchHistory, updateSearchHistory, localSearch } =
         useContext(MapContext)
@@ -139,7 +138,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     contentContainer: {
         paddingBottom: theme.margins.bottomSafeArea,
     },

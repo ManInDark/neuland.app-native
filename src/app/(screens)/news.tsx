@@ -15,14 +15,12 @@ import {
     Platform,
     Pressable,
     RefreshControl,
-    StyleSheet,
     Text,
     View,
 } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 export default function NewsScreen(): JSX.Element {
-    const { styles } = useStyles(stylesheet)
     const { data, error, isLoading, isError, isPaused, isSuccess, refetch } =
         useQuery({
             queryKey: ['thiNews'],
@@ -33,7 +31,7 @@ export default function NewsScreen(): JSX.Element {
     const { isRefetchingByUser, refetchByUser } = useRefreshByUser(refetch)
 
     return (
-        <View>
+        <View style={styles.page}>
             {isLoading ? (
                 <View style={styles.loadingContainer}>
                     <LoadingIndicator />
@@ -123,7 +121,11 @@ export default function NewsScreen(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
+    page: {
+        backgroundColor: theme.colors.background,
+        flex: 1,
+    },
     contentContainer: {
         gap: 18,
         paddingBottom: theme.margins.modalBottomMargin,

@@ -4,10 +4,17 @@ import { type MaterialIcon } from '@/types/material-icons'
 import { type RelativePathString, router } from 'expo-router'
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Platform, Pressable, Text, View } from 'react-native'
+import {
+    type DimensionValue,
+    Platform,
+    Pressable,
+    Text,
+    View,
+} from 'react-native'
 import ContextMenu from 'react-native-context-menu-view'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet, createUnistylesComponent } from 'react-native-unistyles'
 
+import Divider from '../Universal/Divider'
 import PlatformIcon from '../Universal/Icon'
 import { DashboardContext, UserKindContext } from '../contexts'
 import { cardIcons } from '../icons'
@@ -19,13 +26,16 @@ interface BaseCardProps {
     children?: React.ReactNode
 }
 
+export const StyledDivider = createUnistylesComponent(Divider, (theme) => ({
+    color: theme.colors.border,
+    width: '100%' as DimensionValue,
+}))
 const BaseCard: React.FC<BaseCardProps> = ({
     title,
     onPressRoute,
     children,
     removable = true, // ugly but more efficient than iterating over all cards
 }) => {
-    const { styles } = useStyles(stylesheet)
     const { t } = useTranslation('navigation')
 
     const { hideDashboardEntry, resetOrder } = useContext(DashboardContext)
@@ -127,7 +137,7 @@ const BaseCard: React.FC<BaseCardProps> = ({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     card: {
         backgroundColor: theme.colors.card,
         borderColor: theme.colors.border,

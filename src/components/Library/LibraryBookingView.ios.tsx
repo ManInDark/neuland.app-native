@@ -2,12 +2,17 @@ import { type AvailableRoomItem } from '@/types/thi-api'
 import { getAvailableRooms } from '@/utils/library-utils'
 import React, { useEffect, useState } from 'react'
 import { Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet, createUnistylesComponent } from 'react-native-unistyles'
 import { Picker, useBinding } from 'swiftui-react-native'
 
 import BookButton from './BookingButton'
 import BookingFrame from './BookingFrame'
 
+const StyledPicker = createUnistylesComponent(Picker, (theme) => ({
+    pickerStyle: 'wheel' as 'wheel',
+    tint: theme.colors.primary,
+    scaleEffect: 0.9,
+}))
 const LibraryBookingView = ({
     item,
     addReservation,
@@ -19,7 +24,6 @@ const LibraryBookingView = ({
         reservationSeat: string
     ) => Promise<void>
 }): JSX.Element => {
-    const { styles, theme } = useStyles(stylesheet)
     const rooms = getAvailableRooms(item)
     const uniqueRoomNames = [...new Set(rooms.map((item) => item[1].room_name))]
     const [seats, setSeats] = useState<string[]>([])
@@ -48,29 +52,23 @@ const LibraryBookingView = ({
         <>
             <BookingFrame item={item}>
                 <View style={styles.dropdownContainer}>
-                    <Picker
+                    <StyledPicker
                         selection={roomBindung}
-                        pickerStyle="wheel"
-                        tint={theme.colors.primary}
                         style={styles.locationPicker}
                         lineLimit={1}
-                        scaleEffect={0.9}
                     >
                         {uniqueRoomNames.map((option) => (
                             <Text key={option}>{option}</Text>
                         ))}
-                    </Picker>
-                    <Picker
+                    </StyledPicker>
+                    <StyledPicker
                         selection={seatBindung}
-                        tint={theme.colors.primary}
-                        pickerStyle="wheel"
                         style={styles.seatPicker}
-                        scaleEffect={0.9}
                     >
                         {seats.map((option) => (
                             <Text key={option}>{option}</Text>
                         ))}
-                    </Picker>
+                    </StyledPicker>
                 </View>
             </BookingFrame>
             <View style={styles.buttonContainer}>
@@ -85,7 +83,7 @@ const LibraryBookingView = ({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     buttonContainer: {
         paddingTop: 8,
     },

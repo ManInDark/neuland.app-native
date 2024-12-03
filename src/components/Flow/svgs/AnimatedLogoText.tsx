@@ -1,23 +1,24 @@
 import React from 'react'
 import ContentLoader from 'react-content-loader/native'
 import { G, Path, Rect } from 'react-native-svg'
-import { useStyles } from 'react-native-unistyles'
 
 const AnimatedLogoText = ({
+    backgroundColor,
+    foregroundColor,
     dimensions,
     speed,
 }: {
+    backgroundColor: string
+    foregroundColor: string
     dimensions: { logoWidth: number; logoHeight: number }
     speed: number
 }): JSX.Element => {
-    const { theme } = useStyles()
-
     return (
         <ContentLoader
             width={dimensions.logoWidth}
             height={dimensions.logoHeight}
-            backgroundColor={theme.colors.labelSecondaryColor}
-            foregroundColor={theme.colors.text}
+            backgroundColor={backgroundColor}
+            foregroundColor={foregroundColor}
             speed={speed}
         >
             <G className="cls-1">

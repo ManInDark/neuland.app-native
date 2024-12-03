@@ -6,10 +6,9 @@ import { router, useLocalSearchParams } from 'expo-router'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Linking, ScrollView, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 export default function LecturerDetail(): JSX.Element {
-    const { styles, theme } = useStyles(stylesheet)
     const { lecturerEntry } = useLocalSearchParams<{ lecturerEntry: string }>()
     const lecturer: NormalizedLecturer | undefined =
         lecturerEntry != null
@@ -66,7 +65,7 @@ export default function LecturerDetail(): JSX.Element {
                     title: t('pages.lecturer.contact.room'),
                     value: lecturer?.room_short,
                     disabled: lecturer?.room_short === '',
-                    textColor: theme.colors.primary,
+                    textColor: styles.link.color,
                     onPress: () => {
                         router.dismissTo({
                             pathname: '/(tabs)/map',
@@ -78,7 +77,7 @@ export default function LecturerDetail(): JSX.Element {
                     title: t('pages.lecturer.contact.phone'),
                     value: lecturer?.tel_dienst,
                     disabled: lecturer?.tel_dienst === '',
-                    textColor: theme.colors.primary,
+                    textColor: styles.link.color,
                     onPress: () => {
                         void Linking.openURL(
                             `tel:${
@@ -94,7 +93,7 @@ export default function LecturerDetail(): JSX.Element {
                     layout: validEmail ? 'column' : 'row',
                     textColor:
                         (lecturer?.email.includes('@') ?? false)
-                            ? theme.colors.primary
+                            ? styles.link.color
                             : undefined,
                     onPress: () => {
                         void Linking.openURL(`mailto:${lecturer?.email ?? ''}`)
@@ -141,13 +140,16 @@ export default function LecturerDetail(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     formList: {
         alignSelf: 'center',
         width: '100%',
     },
     page: {
         padding: theme.margins.page,
+    },
+    link: {
+        color: theme.colors.primary,
     },
     titleContainer: {
         alignItems: 'center',

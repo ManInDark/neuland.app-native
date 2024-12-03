@@ -1,6 +1,6 @@
 import React from 'react'
-import { type ColorValue, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { View, type ViewStyle } from 'react-native'
+import { StyleSheet } from 'react-native-unistyles'
 
 /**
  * Avatar component that displays a circular image or icon with optional shadow and background color.
@@ -11,24 +11,22 @@ import { createStyleSheet, useStyles } from 'react-native-unistyles'
  */
 const Avatar = ({
     size = 50,
-    background,
+    style,
     children,
 }: {
     size?: number
-    background?: ColorValue
+    style?: ViewStyle
     children: JSX.Element
 }): JSX.Element => {
-    const { styles } = useStyles(stylesheet)
-
-    return <View style={styles.avatar(size, background)}>{children}</View>
+    return <View style={{ ...styles.avatar(size), ...style }}>{children}</View>
 }
 
-const stylesheet = createStyleSheet((theme) => ({
-    avatar: (size: number, background?: ColorValue) => ({
+const styles = StyleSheet.create((theme) => ({
+    avatar: (size: number) => ({
         width: size,
         height: size,
         borderRadius: size / 2,
-        backgroundColor: background ?? theme.colors.primary,
+        backgroundColor: theme.colors.primary,
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',

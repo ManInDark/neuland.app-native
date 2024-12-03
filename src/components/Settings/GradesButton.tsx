@@ -2,13 +2,13 @@ import { handleBiometricAuth } from '@/utils/app-utils'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Pressable, Text } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import PlatformIcon from '../Universal/Icon'
 
 const GradesButton = (): JSX.Element => {
     const { t } = useTranslation('settings')
-    const { styles } = useStyles(stylesheet)
+
     return (
         <Pressable
             onPress={() => {
@@ -34,7 +34,7 @@ const GradesButton = (): JSX.Element => {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     gradesRow: {
         flexDirection: 'row',
         flex: 1,

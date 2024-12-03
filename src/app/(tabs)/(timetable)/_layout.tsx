@@ -3,7 +3,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 export default function TimetableStack(): JSX.Element {
     const { t } = useTranslation('navigation')
@@ -11,7 +11,6 @@ export default function TimetableStack(): JSX.Element {
     const topInset = safeArea.top
     const hasDynamicIsland = Platform.OS === 'ios' && topInset > 50
     const paddingTop = hasDynamicIsland ? topInset : 0
-    const { styles, theme } = useStyles(stylesheet)
     return (
         <View style={{ ...styles.page, paddingTop }}>
             <Stack
@@ -20,7 +19,7 @@ export default function TimetableStack(): JSX.Element {
                     title: t('navigation.timetable'),
                     headerStyle: styles.headerBackground,
                     headerTitleStyle: styles.headerTextStyle,
-                    headerTintColor: theme.colors.primary,
+                    headerTintColor: styles.tint.backgroundColor,
                     contentStyle: styles.background,
                 }}
             ></Stack>
@@ -28,7 +27,7 @@ export default function TimetableStack(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     background: { backgroundColor: theme.colors.background },
     headerBackground: { backgroundColor: theme.colors.card },
     headerTextStyle: { color: theme.colors.text },
@@ -36,4 +35,5 @@ const stylesheet = createStyleSheet((theme) => ({
         backgroundColor: theme.colors.card,
         flex: 1,
     },
+    tint: { backgroundColor: theme.colors.primary },
 }))

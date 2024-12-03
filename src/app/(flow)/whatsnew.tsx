@@ -20,10 +20,9 @@ import Animated, {
     withSequence,
     withTiming,
 } from 'react-native-reanimated'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 export default function WhatsNewScreen(): JSX.Element {
-    const { styles } = useStyles(stylesheet)
     const flow = React.useContext(FlowContext)
     const changelog: Changelog = changelogData as Changelog
     const { t, i18n } = useTranslation('flow')
@@ -185,7 +184,7 @@ export default function WhatsNewScreen(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     boxes: {
         gap: 12,
     },

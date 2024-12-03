@@ -1,6 +1,6 @@
 import React from 'react'
 import { Pressable, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import PlatformIcon from './Icon'
 
@@ -32,7 +32,6 @@ const SingleSectionPicker: React.FC<SectionPickerProps> = ({
     selectedItem,
     action,
 }) => {
-    const { styles } = useStyles(stylesheet)
     return (
         <>
             <React.Fragment>
@@ -40,10 +39,7 @@ const SingleSectionPicker: React.FC<SectionPickerProps> = ({
                     onPress={() => {
                         action(!selectedItem)
                     }}
-                    style={({ pressed }) => [
-                        { opacity: pressed ? 0.8 : 1 },
-                        { padding: 8 },
-                    ]}
+                    style={{ padding: 8 }}
                 >
                     <View style={styles.container}>
                         <Text style={styles.text}>{title}</Text>
@@ -68,7 +64,7 @@ const SingleSectionPicker: React.FC<SectionPickerProps> = ({
 
 export default SingleSectionPicker
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     container: {
         alignItems: 'center',
         flexDirection: 'row',

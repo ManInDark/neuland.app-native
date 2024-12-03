@@ -6,10 +6,9 @@ import { useGlobalSearchParams } from 'expo-router'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Linking, ScrollView, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 export default function License(): JSX.Element {
-    const { styles } = useStyles(stylesheet)
     const { t } = useTranslation(['settings'])
 
     const { license, version, licenseUrl, repository, name } =
@@ -97,7 +96,7 @@ export default function License(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     container: {
         paddingBottom: theme.margins.modalBottomMargin,
     },

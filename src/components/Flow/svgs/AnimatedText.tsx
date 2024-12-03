@@ -7,7 +7,6 @@ import Animated, {
     withRepeat,
     withTiming,
 } from 'react-native-reanimated'
-import { useStyles } from 'react-native-unistyles'
 
 /**
  * Animated text component that changes color between two colors.
@@ -22,15 +21,18 @@ const AnimatedText = ({
     speed,
     text,
     textStyles,
+    fromColor,
+    toColor,
     disabled = false,
 }: {
     speed: number
     text: string
     textStyles: any
+    fromColor: string
+    toColor: string
     disabled?: boolean
 }): JSX.Element => {
     const colorValue = useSharedValue(0)
-    const { theme } = useStyles()
     useEffect(() => {
         if (!disabled) {
             colorValue.value = withRepeat(
@@ -50,7 +52,7 @@ const AnimatedText = ({
         const interpolatedColor = interpolateColor(
             colorValue.value,
             [0, 1],
-            [theme.colors.text, theme.colors.labelSecondaryColor] // Interpolating between text and secondary label colors
+            [fromColor, toColor] // Interpolating between text and secondary label colors
         )
         return {
             color: interpolatedColor,

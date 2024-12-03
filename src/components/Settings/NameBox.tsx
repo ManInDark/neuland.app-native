@@ -1,6 +1,6 @@
 import React, { type ReactNode } from 'react'
 import { Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 interface NameBoxProps {
     children: ReactNode
@@ -25,8 +25,6 @@ const NameBox = ({
     subTitle1,
     subTitle2,
 }: NameBoxProps): JSX.Element => {
-    const { styles } = useStyles(stylesheet)
-
     return (
         <>
             {children}
@@ -55,7 +53,7 @@ const NameBox = ({
 
 export default NameBox
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     container: {
         alignItems: 'flex-start',
         flex: 1,

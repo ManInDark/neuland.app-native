@@ -23,7 +23,7 @@ import { useRouter } from 'expo-router'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform, ScrollView, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 const DURATIONS = [
     '00:15',
@@ -45,7 +45,6 @@ const DURATIONS = [
 const ALL_BUILDINGS = [BUILDINGS_ALL, ...BUILDINGS]
 
 export default function AdvancedSearch(): JSX.Element {
-    const { styles, theme } = useStyles(stylesheet)
     const router = useRouter()
     const { t } = useTranslation('common')
 
@@ -140,8 +139,8 @@ export default function AdvancedSearch(): JSX.Element {
                                 <DateTimePicker
                                     value={new Date(date + 'T' + time)}
                                     mode="date"
-                                    accentColor={theme.colors.primary}
                                     locale="de-DE"
+                                    accentColor={styles.accent.color}
                                     onChange={(_event, selectedDate) => {
                                         setShowDate(Platform.OS !== 'android')
                                         setDate(formatISODate(selectedDate))
@@ -177,8 +176,8 @@ export default function AdvancedSearch(): JSX.Element {
                                 <DateTimePicker
                                     value={new Date(date + 'T' + time)}
                                     mode="time"
+                                    accentColor={styles.accent.color}
                                     is24Hour={true}
-                                    accentColor={theme.colors.primary}
                                     locale="de-DE"
                                     minuteInterval={5}
                                     onChange={(_event, selectedDate) => {
@@ -249,7 +248,7 @@ export default function AdvancedSearch(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     loadingIndicator: {
         paddingVertical: 30,
     },
@@ -281,5 +280,8 @@ const stylesheet = createStyleSheet((theme) => ({
         fontWeight: 'normal',
         marginBottom: 4,
         textTransform: 'uppercase',
+    },
+    accent: {
+        color: theme.colors.primary,
     },
 }))

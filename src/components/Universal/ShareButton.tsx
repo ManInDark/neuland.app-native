@@ -1,7 +1,7 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Pressable, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import PlatformIcon from './Icon'
 
@@ -12,7 +12,6 @@ interface ShareButtonProps {
 export default function ShareButton({
     onPress,
 }: ShareButtonProps): JSX.Element {
-    const { styles } = useStyles(stylesheet)
     const { t } = useTranslation('common')
 
     return (
@@ -35,7 +34,7 @@ export default function ShareButton({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     shareButton: {
         alignSelf: 'center',
         backgroundColor: theme.colors.card,

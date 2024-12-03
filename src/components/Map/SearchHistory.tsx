@@ -5,7 +5,7 @@ import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LayoutAnimation, Platform, Pressable, Text, View } from 'react-native'
 import Swipeable from 'react-native-gesture-handler/ReanimatedSwipeable'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import Divider from '../Universal/Divider'
 import PlatformIcon from '../Universal/Icon'
@@ -18,7 +18,6 @@ interface SearchHistoryProps {
 const SearchHistory: React.FC<SearchHistoryProps> = ({
     handlePresentModalPress,
 }) => {
-    const { styles } = useStyles(stylesheet)
     const { t } = useTranslation('common')
     const { searchHistory, updateSearchHistory } = useContext(MapContext)
 
@@ -106,7 +105,7 @@ const SearchHistory: React.FC<SearchHistoryProps> = ({
 
 export default SearchHistory
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     historyRow: {
         backgroundColor: theme.colors.card,
         paddingHorizontal: 12,

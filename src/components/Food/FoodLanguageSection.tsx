@@ -1,7 +1,7 @@
 import Divider from '@/components/Universal/Divider'
 import React from 'react'
 import { Pressable, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import PlatformIcon from '../Universal/Icon'
 
@@ -30,7 +30,6 @@ const MultiSectionRadio: React.FC<FoodLanguagePickerProps> = ({
     selectedItem,
     action,
 }) => {
-    const { styles } = useStyles(stylesheet)
     return (
         <>
             {elements.map((item, index) => (
@@ -39,10 +38,7 @@ const MultiSectionRadio: React.FC<FoodLanguagePickerProps> = ({
                         onPress={() => {
                             action(item.key)
                         }}
-                        style={({ pressed }) => [
-                            { opacity: pressed ? 0.8 : 1 },
-                            { padding: 8 },
-                        ]}
+                        style={{ padding: 8 }}
                     >
                         <View style={styles.container}>
                             <Text style={styles.text}>{item.title}</Text>
@@ -71,7 +67,7 @@ const MultiSectionRadio: React.FC<FoodLanguagePickerProps> = ({
         </>
     )
 }
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     container: {
         alignItems: 'center',
         flexDirection: 'row',

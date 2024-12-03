@@ -2,13 +2,13 @@ import { router } from 'expo-router'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Pressable, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import PlatformIcon from '../Universal/Icon'
 
 export const FoodHeaderRight = (): JSX.Element => {
     const { t } = useTranslation(['accessibility'])
-    const { styles } = useStyles(stylesheet)
+
     return (
         <Pressable
             onPress={() => {
@@ -35,7 +35,7 @@ export const FoodHeaderRight = (): JSX.Element => {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     headerButton: {
         marginHorizontal: 0,
     },

@@ -5,7 +5,7 @@ import { getAvailableRooms } from '@/utils/library-utils'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import BookButton from './BookingButton'
 import BookingFrame from './BookingFrame'
@@ -21,7 +21,6 @@ const LibraryBookingView = ({
         reservationSeat: string
     ) => Promise<void>
 }): JSX.Element => {
-    const { styles } = useStyles(stylesheet)
     const rooms = getAvailableRooms(item)
     const uniqueRoomNames = [
         ...new Set(
@@ -101,7 +100,7 @@ const LibraryBookingView = ({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     dropdownContainer: {
         alignItems: 'center',
         flexDirection: 'row',

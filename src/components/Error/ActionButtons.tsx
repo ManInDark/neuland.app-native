@@ -4,7 +4,7 @@ import { usePathname } from 'expo-router'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Linking, Platform, Pressable, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 export const FeedbackButton = ({
     error,
@@ -14,7 +14,7 @@ export const FeedbackButton = ({
     crash: boolean
 }): JSX.Element => {
     const { t } = useTranslation('common')
-    const { styles } = useStyles(stylesheet)
+
     const platform = Platform.OS
     const appVersion = `${Application.nativeApplicationVersion} (${Application.nativeBuildVersion})`
     const subject = crash ? 'App-Crash' : 'App-Error'
@@ -44,7 +44,6 @@ export const FeedbackButton = ({
 
 export const StatusButton = (): JSX.Element => {
     const { t } = useTranslation('common')
-    const { styles } = useStyles(stylesheet)
 
     return (
         <Pressable
@@ -62,7 +61,7 @@ export const StatusButton = (): JSX.Element => {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     actionButtonText: {
         color: theme.colors.text,
         fontSize: 15,

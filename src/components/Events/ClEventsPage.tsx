@@ -8,7 +8,7 @@ import { type UseQueryResult } from '@tanstack/react-query'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Animated, RefreshControl, ScrollView, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import LoadingIndicator from '../Universal/LoadingIndicator'
 
@@ -17,7 +17,6 @@ export default function ClEventsPage({
 }: {
     clEventsResult: UseQueryResult<CampusLifeEventFieldsFragment[], Error>
 }): JSX.Element {
-    const { styles } = useStyles(stylesheet)
     const { t } = useTranslation('common')
 
     const {
@@ -103,7 +102,7 @@ export default function ClEventsPage({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     contentBorder: {
         backgroundColor: theme.colors.card,
         borderRadius: theme.radius.md,

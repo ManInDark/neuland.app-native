@@ -3,7 +3,7 @@ import { type ErrorBoundaryProps, usePathname } from 'expo-router'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Pressable, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet, createUnistylesComponent } from 'react-native-unistyles'
 
 import LogoTextSVG from '../Flow/svgs/logoText'
 import PlatformIcon from '../Universal/Icon'
@@ -15,7 +15,7 @@ export const ErrorButton = ({
     onPress: () => void
 }): JSX.Element => {
     const { t } = useTranslation('common')
-    const { styles } = useStyles(stylesheet)
+
     return (
         <Pressable style={styles.logoutContainer} onPress={onPress}>
             <View style={styles.refreshButton}>
@@ -27,11 +27,15 @@ export const ErrorButton = ({
     )
 }
 
+const StyledLogoTextSVG = createUnistylesComponent(LogoTextSVG, (theme) => ({
+    size: 15,
+    color: theme.colors.labelSecondaryColor,
+}))
+
 export default function CrashView({
     error,
     retry,
 }: ErrorBoundaryProps): JSX.Element {
-    const { styles, theme } = useStyles(stylesheet)
     const { t } = useTranslation('common')
     const path = usePathname()
     trackEvent('ErrorView', {
@@ -73,16 +77,13 @@ export default function CrashView({
                 <ErrorButton onPress={handlePress} />
             </View>
             <View style={styles.logoContainer}>
-                <LogoTextSVG
-                    size={15}
-                    color={theme.colors.labelSecondaryColor}
-                />
+                <StyledLogoTextSVG />
             </View>
         </View>
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     errorInfo: {
         color: theme.colors.text,
         fontSize: 18,

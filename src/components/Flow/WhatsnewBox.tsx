@@ -1,7 +1,7 @@
 import { type MaterialIcon } from '@/types/material-icons'
 import React, { type FC } from 'react'
 import { Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import PlatformIcon from '../Universal/Icon'
 
@@ -21,7 +21,6 @@ interface WhatsNewBoxProps {
  * <WhatsNewBox title="Title" description="Description" icon="chevron-forward-circle" />
  */
 const WhatsNewBox: FC<WhatsNewBoxProps> = ({ title, description, icon }) => {
-    const { styles } = useStyles(stylesheet)
     return (
         <View style={styles.container}>
             <PlatformIcon
@@ -52,7 +51,7 @@ const WhatsNewBox: FC<WhatsNewBoxProps> = ({ title, description, icon }) => {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     container: {
         alignItems: 'center',
         backgroundColor: theme.colors.cardContrast,

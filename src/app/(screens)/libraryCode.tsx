@@ -18,10 +18,9 @@ import { useFocusEffect } from 'expo-router'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Dimensions, Platform, Pressable, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 export default function LibraryCode(): JSX.Element {
-    const { styles } = useStyles(stylesheet)
     const { t } = useTranslation('common')
     const { userKind = USER_GUEST } = useContext(UserKindContext)
     const [brightness, setBrightness] = useState<number>(0)
@@ -161,7 +160,7 @@ export default function LibraryCode(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     barcodeContainer: {
         alignSelf: 'center',
         borderRadius: theme.radius.mg,

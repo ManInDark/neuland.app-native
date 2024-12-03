@@ -1,10 +1,8 @@
 import React from 'react'
 import { Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 const OnboardingBox = ({ title }: { title: string }): JSX.Element => {
-    const { styles } = useStyles(stylesheet)
-
     return (
         <View style={styles.container}>
             <Text style={styles.text}>{title}</Text>
@@ -12,7 +10,7 @@ const OnboardingBox = ({ title }: { title: string }): JSX.Element => {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     container: {
         backgroundColor: theme.colors.card,
         borderRadius: theme.radius.md,

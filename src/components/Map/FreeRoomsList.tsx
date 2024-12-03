@@ -4,7 +4,7 @@ import { useRouter } from 'expo-router'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { InteractionManager, Pressable, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import Divider from '../Universal/Divider'
 
@@ -13,7 +13,6 @@ interface FreeRoomsListProps {
 }
 
 export const FreeRoomsList: React.FC<FreeRoomsListProps> = ({ rooms }) => {
-    const { styles } = useStyles(stylesheet)
     const router = useRouter()
     const { t } = useTranslation('common')
 
@@ -73,7 +72,7 @@ export const FreeRoomsList: React.FC<FreeRoomsListProps> = ({ rooms }) => {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     errorInfo: {
         color: theme.colors.text,
         fontSize: 14,

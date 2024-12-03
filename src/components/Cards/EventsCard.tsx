@@ -1,16 +1,14 @@
-import Divider from '@/components/Universal/Divider'
 import { type LanguageKey } from '@/localization/i18n'
 import { loadCampusLifeEvents } from '@/utils/events-utils'
 import { useQuery } from '@tanstack/react-query'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
-import BaseCard from './BaseCard'
+import BaseCard, { StyledDivider } from './BaseCard'
 
 const EventsCard = (): JSX.Element => {
-    const { styles, theme } = useStyles(stylesheet)
     const { t, i18n } = useTranslation('navigation')
 
     const { data, isSuccess } = useQuery({
@@ -55,10 +53,7 @@ const EventsCard = (): JSX.Element => {
                             </View>
 
                             {slicedData.length - 1 !== index && (
-                                <Divider
-                                    width={'100%'}
-                                    color={theme.colors.border}
-                                />
+                                <StyledDivider />
                             )}
                         </React.Fragment>
                     ))}
@@ -68,7 +63,7 @@ const EventsCard = (): JSX.Element => {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     calendarFilled: {
         paddingTop: 10,
     },

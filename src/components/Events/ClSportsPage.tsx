@@ -18,12 +18,11 @@ import {
     Pressable,
     RefreshControl,
     ScrollView,
-    StyleSheet,
     Text,
     View,
 } from 'react-native'
 import Collapsible from 'react-native-collapsible'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import Divider from '../Universal/Divider'
 import LoadingIndicator from '../Universal/LoadingIndicator'
@@ -39,7 +38,7 @@ export default function ClSportsPage({
         Error
     >
 }): JSX.Element {
-    const { styles } = useStyles(stylesheet)
+    
     const { userCampus } = useContext(UserKindContext)
     const [selectedLocation, setSelectedLocation] =
         useState<string>('Ingolstadt')
@@ -111,7 +110,6 @@ export default function ClSportsPage({
                     onPress={() => {
                         setCollapsed(!collapsed)
                     }}
-                    style={({ pressed }) => [{ opacity: pressed ? 0.8 : 1 }]}
                     hitSlop={{ top: 6, bottom: 6 }}
                 >
                     <View style={styles.categoryContainer}>
@@ -257,7 +255,7 @@ export default function ClSportsPage({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create(theme => ({
     campusHeader: {
         color: theme.colors.text,
         fontSize: 16,

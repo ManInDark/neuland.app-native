@@ -31,8 +31,12 @@ import Animated, {
     withTiming,
 } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet, createUnistylesComponent } from 'react-native-unistyles'
 
+const StyledLogoSvg = createUnistylesComponent(LogoSVG, (theme) => ({
+    color: theme.colors.text,
+    size: 160,
+}))
 export default function OnboardingScreen(): JSX.Element {
     const flow = React.useContext(FlowContext)
     const { t, i18n } = useTranslation('flow')
@@ -66,7 +70,6 @@ export default function OnboardingScreen(): JSX.Element {
     ]
 
     const ContinueButton = (): JSX.Element => {
-        const { styles } = useStyles(stylesheet)
         return (
             <Pressable
                 style={styles.button}
@@ -103,8 +106,12 @@ export default function OnboardingScreen(): JSX.Element {
     const [isWhobbleDisabled, setWhobbleDisabled] = useState(true)
     const window = Dimensions.get('window')
 
+    const StyledTextSvg = createUnistylesComponent(AnimatedText, (theme) => ({
+        fromColor: theme.colors.text,
+        toColor: theme.colors.labelSecondaryColor,
+    }))
+
     const CardsElement = (): JSX.Element => {
-        const { styles } = useStyles(stylesheet)
         return (
             <Animated.View style={[styles.boxesContainer, styles.boxes]}>
                 {data.map(({ title, description, icon }, index) => {
@@ -180,7 +187,7 @@ export default function OnboardingScreen(): JSX.Element {
             opacity: legalOpacity.value,
             transform: [{ translateY: legalTranslateY.value }],
         }))
-        const { styles } = useStyles(stylesheet)
+
         return (
             <Animated.View style={{ ...legalAnimatedStyle }}>
                 <View
@@ -386,7 +393,7 @@ export default function OnboardingScreen(): JSX.Element {
         return size * (window.width / guidelineBaseWidth)
     }
     const scaledHeading = scaleFontSize(33)
-    const { styles } = useStyles(stylesheet)
+
     return (
         <>
             <View
@@ -403,7 +410,7 @@ export default function OnboardingScreen(): JSX.Element {
                             ...logoFadeOutAnimatedStyle,
                         }}
                     >
-                        <LogoSVG size={160} />
+                        <StyledLogoSvg />
                     </Animated.View>
 
                     <Animated.Text
@@ -417,7 +424,7 @@ export default function OnboardingScreen(): JSX.Element {
                     >
                         {t('onboarding.page1.title')}
                     </Animated.Text>
-                    <AnimatedText
+                    <StyledTextSvg
                         speed={800}
                         text="Neuland Next"
                         disabled={!buttonDisabled}
@@ -473,7 +480,7 @@ export default function OnboardingScreen(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     boxes: {
         gap: 12,
         marginHorizontal: 40,
@@ -492,7 +499,7 @@ const stylesheet = createStyleSheet((theme) => ({
     },
 
     buttonText: {
-        color: getContrastColor(theme.colors.primary),
+        color: getContrastColor(theme.colors.primary as string),
         fontSize: 16,
         fontWeight: '700',
         textAlign: 'center',

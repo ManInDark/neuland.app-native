@@ -24,11 +24,11 @@ import {
     useWindowDimensions,
 } from 'react-native'
 import PagerView from 'react-native-pager-view'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 export default function CalendarPage(): JSX.Element {
     const { userKind = USER_GUEST } = React.useContext(UserKindContext)
-    const { styles } = useStyles(stylesheet)
+
     const { t } = useTranslation('common')
     const displayTypes = [
         t('pages.calendar.events.title'),
@@ -254,7 +254,7 @@ export default function CalendarPage(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     contentBorder: {
         backgroundColor: theme.colors.card,
         borderRadius: theme.radius.md,

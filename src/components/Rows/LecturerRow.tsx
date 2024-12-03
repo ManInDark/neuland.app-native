@@ -4,13 +4,11 @@ import { router } from 'expo-router'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import RowEntry from '../Universal/RowEntry'
 
 const LecturerRow = ({ item }: { item: NormalizedLecturer }): JSX.Element => {
-    const { styles } = useStyles(stylesheet)
-
     const onPressRoom = (): void => {
         router.dismissTo({
             pathname: '/(tabs)/map',
@@ -74,7 +72,7 @@ const LecturerRow = ({ item }: { item: NormalizedLecturer }): JSX.Element => {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     container: { flexDirection: 'row' },
     leftText1: {
         color: theme.colors.labelColor,

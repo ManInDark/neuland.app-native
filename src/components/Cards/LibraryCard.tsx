@@ -1,6 +1,5 @@
 import API from '@/api/authenticated-api'
 import { NoSessionError } from '@/api/thi-session-handler'
-import Divider from '@/components/Universal/Divider'
 import { UserKindContext } from '@/components/contexts'
 import { USER_GUEST } from '@/data/constants'
 import { type Reservation } from '@/types/thi-api'
@@ -9,12 +8,11 @@ import { useQuery } from '@tanstack/react-query'
 import { useRouter } from 'expo-router'
 import React, { useContext } from 'react'
 import { Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
-import BaseCard from './BaseCard'
+import BaseCard, { StyledDivider } from './BaseCard'
 
 const LibraryCard = (): JSX.Element => {
-    const { styles, theme } = useStyles(stylesheet)
     const { userKind } = useContext(UserKindContext)
     const router = useRouter()
 
@@ -70,12 +68,7 @@ const LibraryCard = (): JSX.Element => {
                                     )}
                                 </Text>
                             </View>
-                            {data.length - 1 !== index && (
-                                <Divider
-                                    color={theme.colors.border}
-                                    width={'100%'}
-                                />
-                            )}
+                            {data.length - 1 !== index && <StyledDivider />}
                         </React.Fragment>
                     ))}
                 </View>
@@ -84,7 +77,7 @@ const LibraryCard = (): JSX.Element => {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     calendarView: { gap: 8 },
     cardsFilled: { paddingTop: 12 },
     eventDetails: { color: theme.colors.labelColor, fontSize: 15 },

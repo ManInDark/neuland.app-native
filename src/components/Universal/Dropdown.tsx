@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import SelectDropdown from 'react-native-select-dropdown'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 interface Props {
     data: string[]
@@ -28,7 +28,6 @@ const Dropdown: React.FC<Props> = ({
     reset = false,
     width = 100,
 }) => {
-    const { styles } = useStyles(stylesheet)
     const ref = React.createRef<SelectDropdown>()
 
     useEffect(() => {
@@ -90,7 +89,6 @@ export const DropdownButton: React.FC<{
     children: React.ReactNode
     onPress: () => void
 }> = ({ children, onPress }) => {
-    const { styles } = useStyles(stylesheet)
     return (
         <TouchableOpacity onPress={onPress}>
             <View style={styles.dropdownButton}>
@@ -106,7 +104,7 @@ export const DropdownButton: React.FC<{
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     buttonText: {
         color: theme.colors.text,
         fontSize: 15,

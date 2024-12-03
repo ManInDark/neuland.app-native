@@ -1,5 +1,4 @@
 import { NoSessionError } from '@/api/thi-session-handler'
-import Divider from '@/components/Universal/Divider'
 import { FlowContext, UserKindContext } from '@/components/contexts'
 import { USER_GUEST, USER_STUDENT } from '@/data/constants'
 import { type LanguageKey } from '@/localization/i18n'
@@ -11,9 +10,9 @@ import { useRouter } from 'expo-router'
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
-import BaseCard from './BaseCard'
+import BaseCard, { StyledDivider } from './BaseCard'
 
 const CalendarCard = (): JSX.Element => {
     type Combined = Calendar | CardExams
@@ -76,8 +75,6 @@ const CalendarCard = (): JSX.Element => {
         setMixedCalendar(combined.slice(0, 2))
     }, [calendar, exams])
 
-    const { styles, theme } = useStyles(stylesheet)
-
     return (
         <BaseCard title="calendar" onPressRoute="calendar">
             <View
@@ -102,10 +99,7 @@ const CalendarCard = (): JSX.Element => {
                             </Text>
                         </View>
                         {mixedCalendar.length - 1 !== index && (
-                            <Divider
-                                color={theme.colors.border}
-                                width={'100%'}
-                            />
+                            <StyledDivider />
                         )}
                     </React.Fragment>
                 ))}
@@ -114,7 +108,7 @@ const CalendarCard = (): JSX.Element => {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     calendarView: {
         gap: 8,
     },

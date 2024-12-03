@@ -22,7 +22,7 @@ import Animated, {
     withTiming,
 } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 const useIsFloatingKeyboard = (): boolean => {
     const windowWidth = Dimensions.get('window').width
@@ -79,7 +79,6 @@ const textsDE = shuffleArray([
 ])
 
 export default function Login(): JSX.Element {
-    const { styles } = useStyles(stylesheet)
     const floatingKeyboard = useIsFloatingKeyboard()
     const { t, i18n } = useTranslation('flow')
     const [currentTextIndex, setCurrentTextIndex] = useState(0)
@@ -189,7 +188,7 @@ export default function Login(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     container: {
         alignSelf: 'center',
         flex: 1,

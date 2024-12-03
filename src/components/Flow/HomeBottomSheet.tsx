@@ -1,10 +1,9 @@
 import { BottomSheetView } from '@gorhom/bottom-sheet'
 import React from 'react'
 import { Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 export const HomeBottomSheet = (): JSX.Element => {
-    const { styles } = useStyles(stylesheet)
     return (
         <BottomSheetView style={styles.contentContainer}>
             <View>
@@ -14,7 +13,7 @@ export const HomeBottomSheet = (): JSX.Element => {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     contentContainer: {
         flex: 1,
         paddingHorizontal: theme.margins.page,

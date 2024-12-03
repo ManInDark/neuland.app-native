@@ -23,7 +23,7 @@ import {
 import { DragSortableView } from 'react-native-drag-sort'
 import { ScrollView } from 'react-native-gesture-handler'
 import { runOnJS, runOnUI, useSharedValue } from 'react-native-reanimated'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 const { width } = Dimensions.get('window')
 
@@ -39,7 +39,6 @@ export default function DashboardEdit(): JSX.Element {
         updateDashboardOrder,
     } = useContext(DashboardContext)
     const { userKind = USER_GUEST } = useContext(UserKindContext)
-    const { styles, theme } = useStyles(stylesheet)
     const { t } = useTranslation(['settings'])
     const [draggedId, setDraggedId] = useState<number | null>(null)
     const [hasUserDefaultOrder, setHasUserDefaultOrder] = useState(true)
@@ -243,8 +242,8 @@ export default function DashboardEdit(): JSX.Element {
                                                 icon: {
                                                     ios: {
                                                         name: 'hand.draw',
-                                                        color: theme.colors
-                                                            .primary,
+                                                        color: styles.notesTitle
+                                                            .color,
                                                     },
                                                 },
                                             })
@@ -415,7 +414,6 @@ function RowItem({
     isLast,
     isDragged,
 }: RowItemProps): JSX.Element {
-    const { styles, theme } = useStyles(stylesheet)
     const bottomWidth = isLast || isDragged ? 0 : 1
 
     return (
@@ -425,7 +423,7 @@ function RowItem({
                     styles.row,
                     styles.outerRow,
                     {
-                        width: width - theme.margins.page * 2,
+                        width: width - 24,
                         borderBottomWidth: bottomWidth,
                     },
                 ]}
@@ -484,7 +482,7 @@ function RowItem({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     block: {
         alignSelf: 'center',
         gap: 6,

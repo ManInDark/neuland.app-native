@@ -8,7 +8,7 @@ import { type FeatureCollection } from 'geojson'
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Pressable, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import Divider from '../Universal/Divider'
 import PlatformIcon from '../Universal/Icon'
@@ -24,7 +24,6 @@ const NextLectureSuggestion: React.FC<NextLectureSuggestionsProps> = ({
 }) => {
     const { setClickedElement, nextLecture, setCurrentFloor } =
         useContext(MapContext)
-    const { styles, theme } = useStyles(stylesheet)
     const { t } = useTranslation('common')
     if (nextLecture == null || nextLecture.length === 0) {
         return null
@@ -56,7 +55,7 @@ const NextLectureSuggestion: React.FC<NextLectureSuggestionsProps> = ({
                                 if (details == null) {
                                     roomNotFoundToast(
                                         lecture.rooms[0],
-                                        theme.colors.notification
+                                        styles.notification.color as string
                                     )
                                     return
                                 }
@@ -125,9 +124,12 @@ const NextLectureSuggestion: React.FC<NextLectureSuggestionsProps> = ({
 
 export default NextLectureSuggestion
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     primaryContrast: {
-        color: getContrastColor(theme.colors.primary),
+        color: getContrastColor(theme.colors.primary as string),
+    },
+    notification: {
+        color: theme.colors.notification,
     },
 
     radiusBg: {

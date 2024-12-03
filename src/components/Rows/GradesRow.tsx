@@ -2,12 +2,11 @@ import { type Grade } from '@/types/thi-api'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import RowEntry from '../Universal/RowEntry'
 
 const GradesRow = ({ item }: { item: Grade }): JSX.Element => {
-    const { styles } = useStyles(stylesheet)
     const { t } = useTranslation('settings')
     if (item.titel === null || item.titel === '') {
         return <></>
@@ -45,7 +44,7 @@ const GradesRow = ({ item }: { item: Grade }): JSX.Element => {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     leftContainer: { paddingTop: 3 },
     leftText1: {
         color: theme.colors.labelColor,

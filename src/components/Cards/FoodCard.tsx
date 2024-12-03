@@ -1,4 +1,3 @@
-import Divider from '@/components/Universal/Divider'
 import { FoodFilterContext, UserKindContext } from '@/components/contexts'
 import { USER_GUEST } from '@/data/constants'
 import { type LanguageKey } from '@/localization/i18n'
@@ -13,13 +12,12 @@ import { useQuery } from '@tanstack/react-query'
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
-import BaseCard from './BaseCard'
+import BaseCard, { StyledDivider } from './BaseCard'
 
 const FoodCard = (): JSX.Element => {
     const { t, i18n } = useTranslation('food')
-    const { styles, theme } = useStyles(stylesheet)
     const {
         selectedRestaurants,
         allergenSelection,
@@ -166,10 +164,7 @@ const FoodCard = (): JSX.Element => {
                                 )}
                             </View>
                             {foodEntries.length - 1 !== index && (
-                                <Divider
-                                    color={theme.colors.border}
-                                    width={'100%'}
-                                />
+                                <StyledDivider />
                             )}
                         </React.Fragment>
                     ))}
@@ -179,7 +174,7 @@ const FoodCard = (): JSX.Element => {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     emptyMenu: {
         color: theme.colors.labelColor,
         fontSize: 16,

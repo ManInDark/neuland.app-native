@@ -4,7 +4,7 @@ import i18n from '@/localization/i18n'
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Linking, Pressable, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import PlatformIcon from '../Universal/Icon'
 import { DashboardContext } from '../contexts'
@@ -17,7 +17,6 @@ const PopUpCard: React.FC<PopUpCardProps> = ({ data }) => {
     const { hiddenAnnouncements, hideAnnouncement } =
         useContext(DashboardContext)
     const { t } = useTranslation('navigation')
-    const { styles } = useStyles(stylesheet)
 
     if (data === undefined) {
         return <></>
@@ -96,7 +95,7 @@ const PopUpCard: React.FC<PopUpCardProps> = ({ data }) => {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     card: {
         backgroundColor: theme.colors.card,
         borderColor: theme.colors.border,

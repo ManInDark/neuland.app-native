@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 import React, { type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { createUnistylesComponent } from 'react-native-unistyles'
 
 export interface WorkaroundStackProps {
     name: string
@@ -15,6 +15,10 @@ export interface WorkaroundStackProps {
     headerRightElement?: ((props: any) => ReactNode) | undefined
     params?: any
     androidFallback?: boolean
+    contentColor: string
+    headerBackground: string
+    headerTintColor: string
+    headerTitleColor: string
 }
 
 /*
@@ -29,7 +33,7 @@ export interface WorkaroundStackProps {
  * @param params - params to pass to the component
  * @returns JSX.Element
  */
-function WorkaroundStack({
+function WorkaroundStack3({
     name,
     titleKey,
     component,
@@ -38,11 +42,14 @@ function WorkaroundStack({
     headerSearchBarOptions = undefined,
     params = {},
     androidFallback = false,
+    contentColor,
+    headerBackground,
+    headerTintColor,
+    headerTitleColor,
 }: WorkaroundStackProps): JSX.Element {
     const { t } = useTranslation('navigation')
     const Stack = createNativeStackNavigator()
     const StackAndroid = createStackNavigator()
-    const { styles, theme } = useStyles(stylesheet)
     // When using the native stack on Android, the header button is invisible. This is another workaround in the workaround.
     if (Platform.OS === 'android' && androidFallback) {
         return (
@@ -55,14 +62,15 @@ function WorkaroundStack({
                             // @ts-expect-error Type not checked
                             titleKey
                         ),
-                        cardStyle: { backgroundColor: theme.colors.background },
+                        cardStyle: {
+                            backgroundColor: contentColor,
+                        },
                         headerRight: headerRightElement as any,
                         headerStyle: {
-                            backgroundColor:
-                                styles.headerBackground.backgroundColor,
+                            backgroundColor: headerBackground,
                         },
 
-                        headerTitleStyle: { color: theme.colors.text },
+                        headerTitleStyle: { color: headerTitleColor },
                     }}
                     initialParams={params}
                 />
@@ -81,14 +89,16 @@ function WorkaroundStack({
                     headerShown: true,
                     headerLargeTitle: Platform.OS === 'ios' && largeTitle,
                     headerRight: headerRightElement,
-                    headerLargeStyle: styles.headerBackground,
-                    headerStyle: styles.headerBackground,
-                    headerSearchBarOptions,
-                    headerTintColor: theme.colors.primary,
-                    contentStyle: styles.background,
-                    headerTitleStyle: {
-                        color: theme.colors.text,
+                    headerLargeStyle: {
+                        backgroundColor: headerBackground,
                     },
+                    headerStyle: {
+                        backgroundColor: headerBackground,
+                    },
+                    headerSearchBarOptions,
+                    headerTintColor,
+                    contentStyle: { backgroundColor: contentColor },
+                    headerTitleStyle: { color: headerTitleColor },
                 }}
                 component={component}
                 initialParams={params}
@@ -96,8 +106,12 @@ function WorkaroundStack({
         </Stack.Navigator>
     )
 }
-const stylesheet = createStyleSheet((theme) => ({
-    background: { backgroundColor: theme.colors.background },
-    headerBackground: { backgroundColor: theme.colors.card },
+
+const WorkaroundStack = createUnistylesComponent(WorkaroundStack3, (theme) => ({
+    contentColor: theme.colors.background,
+    headerBackground: theme.colors.card,
+    headerTintColor: theme.colors.primary,
+    headerTitleColor: theme.colors.text,
 }))
+
 export default WorkaroundStack

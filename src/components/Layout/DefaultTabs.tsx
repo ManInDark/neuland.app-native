@@ -5,27 +5,30 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform } from 'react-native'
 import {
+    StyleSheet,
     UnistylesRuntime,
-    createStyleSheet,
-    useStyles,
+    createUnistylesComponent,
 } from 'react-native-unistyles'
 
 const DefaultTabs = (): JSX.Element => {
-    const { styles, theme: styleTheme } = useStyles(stylesheet)
     const { t } = useTranslation('navigation')
-    const BlurTab = (): JSX.Element => (
-        <BlurView
-            tint={UnistylesRuntime.themeName === 'dark' ? 'dark' : 'light'}
-            intensity={75}
-            style={styles.blurTab}
-        />
+    console.log('DefaultTabs', UnistylesRuntime.themeName)
+    const BlurTab = ({ tint }: { tint: 'light' | 'dark' }) => (
+        <BlurView tint={tint} intensity={75} style={styles.blurTab} />
     )
+
+    const StyledBlurTab = createUnistylesComponent(BlurTab, (theme) => ({
+        tint:
+            theme.colors.background === 'rgb(1, 1, 1)'
+                ? ('dark' as 'dark')
+                : ('light' as 'light'),
+    }))
 
     return (
         <>
             <Tabs
                 screenOptions={{
-                    tabBarActiveTintColor: styleTheme.colors.primary,
+                    tabBarActiveTintColor: styles.tint.color,
                     tabBarLabelStyle: {
                         marginBottom: 2,
                     },
@@ -56,7 +59,7 @@ const DefaultTabs = (): JSX.Element => {
 
                         tabBarStyle: styles.tabbarStyle(true),
                         tabBarBackground: () =>
-                            Platform.OS === 'ios' ? <BlurTab /> : null,
+                            Platform.OS === 'ios' ? <StyledBlurTab /> : null,
                     }}
                 />
 
@@ -143,13 +146,16 @@ const DefaultTabs = (): JSX.Element => {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     blurTab: {
         bottom: 0,
         left: 0,
         position: 'absolute',
         right: 0,
         top: 0,
+    },
+    tint: {
+        color: theme.colors.primary,
     },
     tabbarStyle: (blur: boolean) => ({
         borderTopColor: theme.colors.border,

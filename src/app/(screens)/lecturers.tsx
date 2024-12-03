@@ -40,11 +40,7 @@ import {
     View,
 } from 'react-native'
 import PagerView from 'react-native-pager-view'
-import {
-    UnistylesRuntime,
-    createStyleSheet,
-    useStyles,
-} from 'react-native-unistyles'
+import { StyleSheet, UnistylesRuntime } from 'react-native-unistyles'
 
 export default function LecturersCard(): JSX.Element {
     const router = useRouter()
@@ -54,7 +50,6 @@ export default function LecturersCard(): JSX.Element {
     const { userKind = USER_GUEST } = useContext(UserKindContext)
     const navigation = useNavigation()
     const [selectedPage, setSelectedPage] = useState(0)
-    const { styles, theme } = useStyles(stylesheet)
     const { t } = useTranslation('common')
     const pagerViewRef = useRef<PagerView>(null)
     const [displayesProfessors, setDisplayedProfessors] = useState(false)
@@ -235,9 +230,9 @@ export default function LecturersCard(): JSX.Element {
 
                 ...Platform.select({
                     android: {
-                        headerIconColor: theme.colors.text,
-                        hintTextColor: theme.colors.text,
-                        textColor: theme.colors.text,
+                        headerIconColor: styles.sectionHeader.color,
+                        hintTextColor: styles.sectionHeader.color,
+                        textColor: styles.sectionHeader.color,
                     },
                 }),
                 shouldShowHintSearchIcon: false,
@@ -418,7 +413,7 @@ export default function LecturersCard(): JSX.Element {
                             key={index}
                             // eslint-disable-next-line react-native/no-inline-styles
                             style={{
-                                backgroundColor: theme.colors.card,
+                                backgroundColor: styles.loadedRows.backgroundColor,
                                 borderTopLeftRadius: index === 0 ? 8 : 0,
                                 borderTopRightRadius: index === 0 ? 8 : 0,
                                 borderBottomLeftRadius:
@@ -500,7 +495,7 @@ export default function LecturersCard(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     contentContainer: {
         marginHorizontal: theme.margins.page,
         paddingBottom: theme.margins.bottomSafeArea,

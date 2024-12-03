@@ -21,7 +21,7 @@ import {
 } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
-import { UnistylesProvider, UnistylesRuntime } from 'react-native-unistyles'
+import { UnistylesRuntime } from 'react-native-unistyles'
 
 import {
     useDashboard,
@@ -270,39 +270,28 @@ export default function Provider({
                 client={queryClient}
                 persistOptions={{ persister: syncStoragePersister }}
             >
-                <UnistylesProvider>
-                    <ThemeProvider
-                        value={
-                            UnistylesRuntime.themeName === 'dark'
-                                ? DarkTheme
-                                : DefaultTheme
-                        }
-                    >
-                        <ThemeContext.Provider value={themeHook}>
-                            <PreferencesContext.Provider value={preferences}>
-                                <BottomSheetModalProvider>
-                                    <FlowContext.Provider value={flow}>
-                                        <UserKindContext.Provider
-                                            value={userKind}
+                
+                    <ThemeContext.Provider value={themeHook}>
+                        <PreferencesContext.Provider value={preferences}>
+                            <BottomSheetModalProvider>
+                                <FlowContext.Provider value={flow}>
+                                    <UserKindContext.Provider value={userKind}>
+                                        <FoodFilterContext.Provider
+                                            value={foodFilter}
                                         >
-                                            <FoodFilterContext.Provider
-                                                value={foodFilter}
+                                            <DashboardContext.Provider
+                                                value={dashboard}
                                             >
-                                                <DashboardContext.Provider
-                                                    value={dashboard}
-                                                >
-                                                    <SafeAreaProvider>
-                                                        {children}
-                                                    </SafeAreaProvider>
-                                                </DashboardContext.Provider>
-                                            </FoodFilterContext.Provider>
-                                        </UserKindContext.Provider>
-                                    </FlowContext.Provider>
-                                </BottomSheetModalProvider>
-                            </PreferencesContext.Provider>
-                        </ThemeContext.Provider>
-                    </ThemeProvider>
-                </UnistylesProvider>
+                                                <SafeAreaProvider>
+                                                    {children}
+                                                </SafeAreaProvider>
+                                            </DashboardContext.Provider>
+                                        </FoodFilterContext.Provider>
+                                    </UserKindContext.Provider>
+                                </FlowContext.Provider>
+                            </BottomSheetModalProvider>
+                        </PreferencesContext.Provider>
+                    </ThemeContext.Provider>
             </PersistQueryClientProvider>
         </GestureHandlerRootView>
     )

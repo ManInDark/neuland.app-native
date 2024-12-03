@@ -5,13 +5,12 @@ import { trackEvent } from '@aptabase/react-native'
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Linking, Platform, Pressable, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import PlatformIcon from '../Universal/Icon'
 import BaseCard from './BaseCard'
 
 const LinkCard = (): JSX.Element => {
-    const { styles } = useStyles(stylesheet)
     const { t } = useTranslation('common')
     const { recentQuicklinks, addRecentQuicklink } =
         useContext(PreferencesContext)
@@ -72,7 +71,7 @@ const LinkCard = (): JSX.Element => {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     cardsFilled: {
         flexDirection: 'row',
         flexWrap: 'wrap',

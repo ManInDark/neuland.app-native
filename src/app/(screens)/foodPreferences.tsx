@@ -12,7 +12,7 @@ import { useRouter } from 'expo-router'
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 export default function FoodPreferences(): JSX.Element {
     const { t } = useTranslation('food')
@@ -43,7 +43,7 @@ export default function FoodPreferences(): JSX.Element {
         { key: 'de', title: t('preferences.languages.de') },
         { key: 'en', title: t('preferences.languages.en') },
     ]
-    const { styles } = useStyles(stylesheet)
+
     const router = useRouter()
 
     const {
@@ -129,7 +129,7 @@ export default function FoodPreferences(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     container: { flex: 1 },
     notesBox: {
         alignContent: 'center',

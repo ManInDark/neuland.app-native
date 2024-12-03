@@ -2,7 +2,7 @@ import Divider from '@/components/Universal/Divider'
 import { type FormListSections, type SectionGroup } from '@/types/components'
 import React from 'react'
 import { Platform, Pressable, Text, View, type ViewStyle } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import PlatformIcon from './Icon'
 
@@ -28,7 +28,6 @@ const RenderSectionItem: React.FC<RenderSectionItemProps> = ({
     sectionIndex,
     section,
 }) => {
-    const { styles } = useStyles(stylesheet)
     return (
         <View key={sectionIndex} style={styles.block}>
             <View style={(styles.blockCard, styles.itemBlock)}>
@@ -44,8 +43,6 @@ const RenderSectionFrame: React.FC<RenderSectionFrameProps> = ({
     footer,
     header,
 }) => {
-    const { styles } = useStyles(stylesheet)
-
     return (
         <View key={sectionIndex} style={styles.block}>
             {header != null && <Text style={styles.blockHeader}>{header}</Text>}
@@ -60,19 +57,12 @@ const RenderSectionItems: React.FC<{
     privacyHidden: boolean
     rowStyle?: ViewStyle
 }> = ({ items, privacyHidden, rowStyle }) => {
-    const { styles, theme } = useStyles(stylesheet)
-
     return (
         <View style={styles.blockCard}>
             {items.map((item, index) => (
                 <React.Fragment key={index}>
                     <Pressable
                         onPress={item.onPress}
-                        style={({ pressed }) => [
-                            {
-                                opacity: pressed ? 0.9 : 1,
-                            },
-                        ]}
                         disabled={item.disabled ?? item.onPress === undefined}
                     >
                         <View
@@ -98,7 +88,7 @@ const RenderSectionItems: React.FC<{
                                         {
                                             color:
                                                 item.textColor ??
-                                                theme.colors.labelColor,
+                                                styles.fallBackColor.color,
                                             fontWeight:
                                                 item.fontWeight ?? 'normal',
                                         },
@@ -131,7 +121,7 @@ const RenderSectionItems: React.FC<{
                                             Platform.OS === 'android' ? 2 : 0,
                                         color:
                                             item.iconColor ??
-                                            theme.colors.labelSecondaryColor,
+                                            styles.blockFooter.color,
                                     }}
                                 />
                             )}
@@ -156,8 +146,6 @@ const FormList: React.FC<FormListProps> = ({
     rowStyle,
     privacyHidden,
 }) => {
-    const { styles } = useStyles(stylesheet)
-
     return (
         <View style={styles.wrapper}>
             {sections.map((section, sectionIndex) =>
@@ -192,7 +180,7 @@ const FormList: React.FC<FormListProps> = ({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     block: {
         gap: 6,
     },
@@ -250,6 +238,9 @@ const stylesheet = createStyleSheet((theme) => ({
     wrapper: {
         gap: 16,
         width: '100%',
+    },
+    fallBackColor: {
+        color: theme.colors.labelColor,
     },
 }))
 

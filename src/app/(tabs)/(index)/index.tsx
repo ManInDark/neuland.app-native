@@ -14,11 +14,10 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Dimensions, LayoutAnimation, Platform, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 export default function HomeRootScreen(): JSX.Element {
     const [isPageOpen, setIsPageOpen] = useState(false)
-    const { styles } = useStyles(stylesheet)
     const safeArea = useSafeAreaInsets()
     const topInset = safeArea.top
     const hasDynamicIsland = Platform.OS === 'ios' && topInset > 50
@@ -58,7 +57,6 @@ export default function HomeRootScreen(): JSX.Element {
 }
 
 function HomeScreen(): JSX.Element {
-    const { styles, theme } = useStyles(stylesheet)
     const { shownDashboardEntries } = React.useContext(DashboardContext)
     const [orientation, setOrientation] = useState(
         Dimensions.get('window').width
@@ -119,7 +117,7 @@ function HomeScreen(): JSX.Element {
         <MasonryFlashList
             key={orientation}
             contentInsetAdjustmentBehavior="automatic"
-            contentContainerStyle={{ ...styles.container, ...styles.page }}
+            contentContainerStyle={styles.container}
             showsVerticalScrollIndicator={false}
             data={shownDashboardEntries}
             renderItem={({ item, index }) => {
@@ -127,9 +125,7 @@ function HomeScreen(): JSX.Element {
 
                 if (columns !== 1) {
                     paddingStyle =
-                        index % 2 === 0
-                            ? { marginRight: theme.margins.page / 2 }
-                            : { marginLeft: theme.margins.page / 2 }
+                        index % 2 === 0 ? { marginRight: 6 } : { marginLeft: 6 }
                 }
 
                 return (
@@ -152,7 +148,7 @@ function HomeScreen(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     container: {
         paddingBottom: theme.margins.bottomSafeArea,
         paddingTop: 6,
@@ -167,8 +163,5 @@ const stylesheet = createStyleSheet((theme) => ({
         gap: 0,
         marginHorizontal: theme.margins.page,
         marginVertical: 6,
-    },
-    page: {
-        backgroundColor: theme.colors.background,
     },
 }))

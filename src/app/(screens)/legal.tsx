@@ -6,11 +6,11 @@ import { useRouter } from 'expo-router'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Linking, ScrollView, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 export default function About(): JSX.Element {
     const router = useRouter()
-    const { styles } = useStyles(stylesheet)
+
     const { t, i18n } = useTranslation(['settings'])
 
     const sections: FormListSections[] = [
@@ -31,7 +31,7 @@ export default function About(): JSX.Element {
                     title: t('navigation.licenses.title', { ns: 'navigation' }),
                     icon: chevronIcon,
                     onPress: () => {
-                        router.navigate('licenses')
+                        router.navigate('/licenses')
                     },
                 },
             ],
@@ -84,7 +84,7 @@ export default function About(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     contentContainer: {
         paddingBottom: theme.margins.bottomSafeArea,
     },

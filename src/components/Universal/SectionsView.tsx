@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 const SectionView = ({
     title,
@@ -13,7 +13,6 @@ const SectionView = ({
     children: JSX.Element
     link?: { text: string; destination: () => void }
 }): JSX.Element => {
-    const { styles } = useStyles(stylesheet)
     return (
         <>
             <View style={styles.sectionContainer}>
@@ -40,7 +39,7 @@ const SectionView = ({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     footerText: (isLink: boolean) => ({
         marginTop: 6,
         fontSize: 12.5,

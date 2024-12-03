@@ -24,7 +24,27 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform, Pressable, Text, View } from 'react-native'
 import ContextMenu from 'react-native-context-menu-view'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet, createUnistylesComponent } from 'react-native-unistyles'
+
+const StyledLinearGradient = createUnistylesComponent(
+    LinearGradient,
+    (theme) => ({
+        colors: [
+            theme.colors.labelBackground as string,
+            Color(theme.colors.labelBackground).lighten(0.15).hex(),
+        ] as [string, string],
+    })
+)
+
+const StyledLinearGradientLight = createUnistylesComponent(
+    LinearGradient,
+    (theme) => ({
+        colors: [
+            theme.colors.labelBackground,
+            Color(theme.colors.labelBackground).lighten(0.13).hex(),
+        ] as [string, string],
+    })
+)
 
 /**
  * Renders a single meal entry in the food menu.
@@ -42,7 +62,6 @@ export const MealEntry = ({
     const { preferencesSelection, allergenSelection, foodLanguage } =
         useContext(FoodFilterContext)
     const { t, i18n } = useTranslation('food')
-    const { styles, theme } = useStyles(stylesheet)
     const userAllergens = convertRelevantAllergens(
         meal.allergens ?? [],
         allergenSelection,
@@ -179,21 +198,15 @@ export const MealEntry = ({
                                 )}
                             </Text>
                             {meal.variants?.length > 0 && (
-                                <LinearGradient
+                                <StyledLinearGradient
                                     style={styles.variantContainer}
-                                    colors={[
-                                        theme.colors.labelBackground,
-                                        Color(theme.colors.labelBackground)
-                                            .lighten(0.15)
-                                            .hex(),
-                                    ]}
                                     start={[0, 1]}
                                     end={[1, 0]}
                                 >
                                     <Text style={styles.variantText}>
                                         {'+ ' + meal.variants.length}
                                     </Text>
-                                </LinearGradient>
+                                </StyledLinearGradient>
                             )}
                         </View>
                         <View style={styles.detailsContainer}>
@@ -201,26 +214,16 @@ export const MealEntry = ({
                                 <View style={styles.flags}>
                                     {userFlags?.map(
                                         (flag: string, index: number) => (
-                                            <LinearGradient
+                                            <StyledLinearGradientLight
                                                 key={index}
                                                 style={styles.flagsBox}
-                                                colors={[
-                                                    theme.colors
-                                                        .labelBackground,
-                                                    Color(
-                                                        theme.colors
-                                                            .labelBackground
-                                                    )
-                                                        .lighten(0.13)
-                                                        .hex(),
-                                                ]}
                                                 start={[0, 0]}
                                                 end={[1, 0]}
                                             >
                                                 <Text style={styles.flagsText}>
                                                     {flag}
                                                 </Text>
-                                            </LinearGradient>
+                                            </StyledLinearGradientLight>
                                         )
                                     )}
                                 </View>
@@ -268,7 +271,7 @@ export const MealEntry = ({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     allergene: {
         color: theme.colors.notification,
         fontSize: 12,

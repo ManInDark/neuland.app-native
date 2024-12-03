@@ -21,7 +21,7 @@ import { type i18n } from 'i18next'
 import React, { useCallback, useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert, Linking, ScrollView, Share, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 export const humanLocations = {
     IngolstadtMensa: 'Mensa Ingolstadt',
@@ -56,7 +56,6 @@ export function shareMeal(
 }
 
 export default function FoodDetail(): JSX.Element {
-    const { styles, theme } = useStyles(stylesheet)
     const { foodEntry } = useLocalSearchParams<{ foodEntry: string }>()
     const meal: Meal | undefined =
         foodEntry != null
@@ -256,7 +255,7 @@ export default function FoodDetail(): JSX.Element {
                               ios: 'checkmark.seal',
                           }
                         : undefined,
-                    iconColor: theme.colors.success,
+                    iconColor: styles.success.color,
                     onPress: () => {
                         itemAlert(flag, 'flag')
                     },
@@ -281,7 +280,7 @@ export default function FoodDetail(): JSX.Element {
                                   ios: 'exclamationmark.triangle',
                               }
                             : undefined,
-                        iconColor: theme.colors.notification,
+                        iconColor: styles.notification.color,
                         onPress: () => {
                             itemAlert(allergen, 'allergen')
                         },
@@ -321,9 +320,7 @@ export default function FoodDetail(): JSX.Element {
                         restaurant as keyof typeof humanLocations
                     ],
                     onPress: handlePress,
-                    textColor: locationExists
-                        ? theme.colors.primary
-                        : undefined,
+                    textColor: locationExists ? styles.link.color : undefined,
                     disabled: !locationExists,
                 },
                 {
@@ -445,7 +442,7 @@ export default function FoodDetail(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     formList: {
         alignSelf: 'center',
         marginVertical: 16,
@@ -495,5 +492,14 @@ const stylesheet = createStyleSheet((theme) => ({
         color: theme.colors.text,
         fontSize: 18,
         textAlign: 'center',
+    },
+    link: {
+        color: theme.colors.primary,
+    },
+    success: {
+        color: theme.colors.success,
+    },
+    notification: {
+        color: theme.colors.warning,
     },
 }))

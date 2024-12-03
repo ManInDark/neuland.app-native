@@ -22,11 +22,11 @@ import {
     Text,
     View,
 } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 export default function About(): JSX.Element {
     const router = useRouter()
-    const { styles } = useStyles(stylesheet)
+
     const { t } = useTranslation(['settings'])
     const { analyticsAllowed, setAnalyticsAllowed } =
         React.useContext(FlowContext)
@@ -246,7 +246,7 @@ export default function About(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     appTitleContainer: {
         marginBottom: 10,
     },

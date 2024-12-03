@@ -3,7 +3,7 @@ import { formatFriendlyDateTimeRange } from '@/utils/date-utils'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Alert, Pressable, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import PlatformIcon from '../Universal/Icon'
 import RowEntry from '../Universal/RowEntry'
@@ -16,7 +16,7 @@ const LibraryReservationRow = ({
     deleteReservation: (id: string) => Promise<void>
 }): JSX.Element => {
     const { t } = useTranslation('common')
-    const { styles } = useStyles(stylesheet)
+
     const deleteAlert = (): void => {
         Alert.alert(
             t('pages.library.reservations.alert.title'),
@@ -90,7 +90,7 @@ const LibraryReservationRow = ({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     leftText1: {
         color: theme.colors.labelColor,
         fontSize: 15,

@@ -7,11 +7,7 @@ import { useNavigation } from 'expo-router'
 import React, { useContext, useLayoutEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform, ScrollView, Text, View } from 'react-native'
-import {
-    UnistylesRuntime,
-    createStyleSheet,
-    useStyles,
-} from 'react-native-unistyles'
+import { StyleSheet, UnistylesRuntime } from 'react-native-unistyles'
 
 /*
  * Screen for selecting allergens or preferences
@@ -26,7 +22,6 @@ const ItemsPickerScreen = (params: {
     const placeholderKey =
         type === 'allergens' ? 'allergensSearch' : 'flagsSearch'
     const isDark = UnistylesRuntime.themeName === 'dark'
-    const { styles, theme } = useStyles(stylesheet)
     const { t, i18n } = useTranslation('food')
     const [searchQuery, setSearchQuery] = useState<string>('')
 
@@ -58,11 +53,11 @@ const ItemsPickerScreen = (params: {
                 placeholder: t(`navigation.${placeholderKey}`, {
                     ns: 'navigation',
                 }),
-                textColor: theme.colors.text,
+                textColor: styles.searchText.color,
                 ...Platform.select({
                     android: {
-                        headerIconColor: theme.colors.text,
-                        hintTextColor: theme.colors.text,
+                        headerIconColor: styles.searchText.color,
+                        hintTextColor: styles.searchText.color,
                     },
                 }),
                 shouldShowHintSearchIcon: false,
@@ -103,7 +98,7 @@ const ItemsPickerScreen = (params: {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     container: {
         alignSelf: 'center',
         backgroundColor: theme.colors.card,
@@ -114,6 +109,9 @@ const stylesheet = createStyleSheet((theme) => ({
         alignSelf: 'center',
         color: theme.colors.labelColor,
         marginTop: 20,
+    },
+    searchText: {
+        color: theme.colors.text,
     },
 }))
 

@@ -1,4 +1,3 @@
-import Divider from '@/components/Universal/Divider'
 import { UserKindContext } from '@/components/contexts'
 import { USER_GUEST } from '@/data/constants'
 import { useInterval } from '@/hooks/useInterval'
@@ -11,12 +10,11 @@ import { useFocusEffect } from 'expo-router'
 import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
-import BaseCard from './BaseCard'
+import BaseCard, { StyledDivider } from './BaseCard'
 
 const TimetableCard: React.FC = () => {
-    const { styles, theme } = useStyles(stylesheet)
     const { userKind = USER_GUEST } = useContext(UserKindContext)
     const [loadingState, setLoadingState] = useState(LoadingState.LOADING)
     const [filteredTimetable, setFilteredTimetable] = useState<
@@ -120,7 +118,7 @@ const TimetableCard: React.FC = () => {
                 {index < filteredTimetable.length - 1 && (
                     <>
                         <View style={styles.divider} />
-                        <Divider width="100%" color={theme.colors.border} />
+                        <StyledDivider />
                     </>
                 )}
             </View>
@@ -145,7 +143,7 @@ const TimetableCard: React.FC = () => {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     calendarView: { gap: 8 },
     cardsFilled: { paddingTop: 12 },
     divider: { height: 10 },

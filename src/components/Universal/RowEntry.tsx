@@ -1,6 +1,6 @@
 import React from 'react'
 import { type DimensionValue, Pressable, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 const RowEntry = ({
     title,
@@ -20,7 +20,6 @@ const RowEntry = ({
     backgroundColor?: string
     icon?: JSX.Element
 }): JSX.Element => {
-    const { styles } = useStyles(stylesheet)
     return (
         <Pressable onPress={onPress}>
             <View style={{ ...styles.eventContainer, backgroundColor }}>
@@ -49,7 +48,7 @@ const RowEntry = ({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     detailsContainer: {
         alignItems: 'flex-start',
 

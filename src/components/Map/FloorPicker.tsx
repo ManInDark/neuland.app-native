@@ -4,11 +4,7 @@ import { getContrastColor } from '@/utils/ui-utils'
 import * as Haptics from 'expo-haptics'
 import React, { useContext } from 'react'
 import { Platform, Pressable, Text, View } from 'react-native'
-import {
-    UnistylesRuntime,
-    createStyleSheet,
-    useStyles,
-} from 'react-native-unistyles'
+import { StyleSheet, UnistylesRuntime } from 'react-native-unistyles'
 
 interface FloorPickerProps {
     floors: string[]
@@ -23,7 +19,6 @@ const FloorPicker: React.FC<FloorPickerProps> = ({
     toggleShowAllFloors,
     setCameraTriggerKey,
 }): JSX.Element => {
-    const { styles } = useStyles(stylesheet)
     const { currentFloor, setCurrentFloor } = useContext(MapContext)
 
     return (
@@ -156,7 +151,7 @@ const FloorPicker: React.FC<FloorPickerProps> = ({
 
 export default FloorPicker
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     ButtonArea: {
         marginHorizontal: 8,
         marginTop: 110,
@@ -192,7 +187,7 @@ const stylesheet = createStyleSheet((theme) => ({
         fontSize: 15,
         color:
             open && current
-                ? getContrastColor(theme.colors.text)
+                ? getContrastColor(theme.colors.text as string)
                 : theme.colors.text,
     }),
     icon: {

@@ -17,10 +17,9 @@ import {
 import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Linking, ScrollView, Share, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 export default function SportsEventDetail(): JSX.Element {
-    const { styles, theme } = useStyles(stylesheet)
     const { sportsEventEntry } = useLocalSearchParams<{
         sportsEventEntry: string
     }>()
@@ -147,7 +146,7 @@ export default function SportsEventDetail(): JSX.Element {
                                       `mailto:${sportsEvent.eMail}`
                                   )
                               },
-                              textColor: theme.colors.primary,
+                              textColor: styles.link.color,
                           },
                       ]
                     : []),
@@ -161,7 +160,7 @@ export default function SportsEventDetail(): JSX.Element {
                                       sportsEvent.invitationLink ?? ''
                                   )
                               },
-                              textColor: theme.colors.primary,
+                              textColor: styles.link.color,
                           },
                       ]
                     : []),
@@ -192,7 +191,7 @@ export default function SportsEventDetail(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     container: {
         gap: 12,
         paddingBottom: theme.margins.bottomSafeArea,
@@ -222,4 +221,7 @@ const stylesheet = createStyleSheet((theme) => ({
     warning: (active: boolean) => ({
         color: active ? theme.colors.warning : theme.colors.success,
     }),
+    link: {
+        color: theme.colors.primary,
+    },
 }))

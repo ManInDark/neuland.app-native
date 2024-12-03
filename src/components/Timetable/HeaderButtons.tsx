@@ -3,12 +3,11 @@ import { trackEvent } from '@aptabase/react-native'
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform, Pressable } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import PlatformIcon from '../Universal/Icon'
 
 export function HeaderLeft(): JSX.Element {
-    const { styles } = useStyles(stylesheet)
     const { timetableMode, setTimetableMode } = useContext(PreferencesContext)
     const marginRight = Platform.OS === 'ios' ? 0 : 10
     const { t } = useTranslation(['accessibility'])
@@ -52,7 +51,6 @@ interface HeaderRightProps {
 }
 
 export function HeaderRight({ setToday }: HeaderRightProps): JSX.Element {
-    const { styles } = useStyles(stylesheet)
     const { t } = useTranslation(['accessibility'])
     return (
         <Pressable
@@ -75,7 +73,7 @@ export function HeaderRight({ setToday }: HeaderRightProps): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     icon: {
         color: theme.colors.text,
     },

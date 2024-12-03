@@ -15,11 +15,7 @@ import { useFocusEffect, useNavigation, useRouter } from 'expo-router'
 import moment from 'moment'
 import React, { useContext, useEffect, useLayoutEffect, useRef } from 'react'
 import { Platform, Text, View } from 'react-native'
-import {
-    UnistylesRuntime,
-    createStyleSheet,
-    useStyles,
-} from 'react-native-unistyles'
+import { StyleSheet, UnistylesRuntime } from 'react-native-unistyles'
 import WeekView, {
     type HeaderComponentProps,
     type WeekViewEvent,
@@ -33,7 +29,6 @@ export default function TimetableWeek({
     // eslint-disable-next-line react/prop-types
     exams,
 }: ITimetableViewProps): JSX.Element {
-    const { styles, theme } = useStyles(stylesheet)
     const { selectedDate, setSelectedDate } = useContext(PreferencesContext)
     // get the first day of friendlyTimetable that is not in the past
     const today = new Date()
@@ -46,7 +41,7 @@ export default function TimetableWeek({
         (entry: FriendlyTimetableEntry, index: number) => ({
             ...entry,
             eventType: 'lecture',
-            color: theme.colors.primary,
+            color: styles.tint.color as string,
             id: index,
             startDate: new Date(entry.startDate),
             endDate: new Date(entry.endDate),
@@ -56,7 +51,7 @@ export default function TimetableWeek({
     const examsWithColor = exams.map((exam: Exam, index: number) => ({
         ...exam,
         eventType: 'exam',
-        color: inverseColor(theme.colors.primary),
+        color: inverseColor(styles.tint.color as string),
         id: friendlyTimetable.length + index, // Ensure unique ID by continuing from the last timetable entry ID
         startDate: new Date(exam.date),
         endDate: new Date(new Date(exam.date).getTime() + 1000 * 60 * 60 * 1.5), // Correctly calculate the endDate
@@ -141,7 +136,7 @@ export default function TimetableWeek({
         const nameParts = event.shortName.split('_').slice(1)
         const background = eventBackgroundColor(event.color)
         const fontColor = textColor(event.color, background)
-        const { styles } = useStyles(stylesheet)
+
         const eventName = event.name ?? ''
         const nameToDisplay =
             eventName.length > 20
@@ -216,7 +211,7 @@ export default function TimetableWeek({
         const begin = new Date(event.date)
         const background = eventBackgroundColor(event.color)
         const fontColor = textColor(event.color, background)
-        const { styles } = useStyles(stylesheet)
+
         return (
             <View
                 style={{
@@ -328,7 +323,7 @@ export default function TimetableWeek({
         isToday,
     }: HeaderComponentProps): JSX.Element => {
         const eventDate = moment(date)
-        const { styles } = useStyles(stylesheet)
+
         return (
             <View style={styles.dayCointainer}>
                 <Text style={styles.dayHeaderText(isToday)}>
@@ -394,7 +389,7 @@ export default function TimetableWeek({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     dayCointainer: {
         backgroundColor: Color(theme.colors.card)
             .darken(UnistylesRuntime.themeName === 'dark' ? 0 : 0.13)
@@ -459,7 +454,9 @@ const stylesheet = createStyleSheet((theme) => ({
     nowLine: (isIOS: boolean) => ({
         color: isIOS ? theme.colors.primary : theme.colors.notification,
     }),
-
+    tint: {
+        color: theme.colors.primary,
+    },
     roomRow: {
         alignItems: 'center',
         flexDirection: 'row',

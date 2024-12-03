@@ -7,10 +7,9 @@ import { useLocalSearchParams } from 'expo-router'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollView, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 export default function ExamDetail(): JSX.Element {
-    const { styles } = useStyles(stylesheet)
     const { examEntry } = useLocalSearchParams<{ examEntry: string }>()
     const exam: Exam | undefined =
         examEntry != null
@@ -110,7 +109,7 @@ export default function ExamDetail(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     container: {
         gap: 12,
         marginBottom: theme.margins.modalBottomMargin,

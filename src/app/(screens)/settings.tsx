@@ -50,10 +50,9 @@ import Animated, {
     withTiming,
 } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet, createUnistylesComponent } from 'react-native-unistyles'
 
 export default function Settings(): JSX.Element {
-    const { styles, theme } = useStyles(stylesheet)
     const { userKind = USER_GUEST } =
         useContext<UserKindContextType>(UserKindContext)
     const { resetOrder } = useContext(DashboardContext)
@@ -76,6 +75,19 @@ export default function Settings(): JSX.Element {
     const username =
         userKind === USER_EMPLOYEE && SecureStore.getItem('username')
     const { color, randomizeColor } = useRandomColor()
+
+    const StyledAnimatedLogoText = createUnistylesComponent(
+        AnimatedLogoText,
+        (theme) => ({
+            backgroundColor: theme.colors.labelSecondaryColor,
+            foregroundColor: theme.colors.text,
+            dimensions: {
+                logoWidth,
+                logoHeight,
+            },
+            speed: 3.5,
+        })
+    )
 
     useEffect(() => {
         const { bottomBoundY, topBoundY } = getBounds()
@@ -426,9 +438,8 @@ export default function Settings(): JSX.Element {
                                             )}
                                         >
                                             <Avatar
-                                                background={
-                                                    theme.colors
-                                                        .labelTertiaryColor
+                                                style={
+                                                    styles.inactiveBackground
                                                 }
                                             >
                                                 <PlatformIcon
@@ -485,9 +496,7 @@ export default function Settings(): JSX.Element {
                                         subTitle2={''}
                                     >
                                         <Avatar
-                                            background={
-                                                theme.colors.labelTertiaryColor
-                                            }
+                                            style={styles.inactiveBackground}
                                         >
                                             <PlatformIcon
                                                 ios={{
@@ -534,9 +543,7 @@ export default function Settings(): JSX.Element {
                                         subTitle2={t('menu.error.subtitle2')}
                                     >
                                         <Avatar
-                                            background={
-                                                theme.colors.labelTertiaryColor
-                                            }
+                                            style={styles.inactiveBackground}
                                         >
                                             <PlatformIcon
                                                 ios={{
@@ -583,10 +590,7 @@ export default function Settings(): JSX.Element {
                     disabled={!isBouncing}
                     hitSlop={{ top: 10, right: 10, bottom: 10, left: 10 }}
                 >
-                    <LogoTextSVG
-                        size={15}
-                        color={isBouncing ? color : theme.colors.text}
-                    />
+                    <LogoTextSVG size={15} color={color} />
                 </Pressable>
             </Animated.View>
 
@@ -609,22 +613,16 @@ export default function Settings(): JSX.Element {
                     })}
                     hitSlop={{ top: 10, right: 10, bottom: 10, left: 10 }}
                 >
-                    <AnimatedLogoText
-                        dimensions={{
-                            logoWidth,
-                            logoHeight,
-                        }}
-                        speed={3.5}
-                    />
+                    <StyledAnimatedLogoText />
                 </Pressable>
             </Animated.View>
         </ScrollView>
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     avatarText: {
-        color: getContrastColor(theme.colors.primary),
+        color: getContrastColor(theme.colors.primary as string),
         fontSize: 20,
         fontWeight: 'bold',
     },
@@ -679,6 +677,9 @@ const stylesheet = createStyleSheet((theme) => ({
     whobbleContainer: {
         alignItems: 'center',
         paddingTop: 20,
+    },
+    inactiveBackground: {
+        backgroundColor: theme.colors.labelTertiaryColor,
     },
     wrapper: { paddingHorizontal: 16, paddingTop: 20 },
 }))

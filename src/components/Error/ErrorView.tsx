@@ -12,7 +12,7 @@ import {
     Text,
     View,
 } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import PlatformIcon from '../Universal/Icon'
 import StatusBox from './ActionBox'
@@ -40,7 +40,6 @@ export default function ErrorView({
     inModal?: boolean
     isCritical?: boolean
 }): JSX.Element {
-    const { styles } = useStyles(stylesheet)
     const { t } = useTranslation('common')
     const path = usePathname()
     const getIcon = (): MaterialIcon | any => {
@@ -206,7 +205,7 @@ export default function ErrorView({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     container: (inModal: boolean) => ({
         paddingHorizontal: 25,
         flex: 1,

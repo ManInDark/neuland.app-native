@@ -163,5 +163,5 @@ export default function HomeLayout(): JSX.Element {
         return <Redirect href={'/whatsnew'} />
     }
 
-    return Platform.OS === 'android' ? <MaterialTabs /> : <DefaultTabs />
+    return  <DefaultTabs />
 }

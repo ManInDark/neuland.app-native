@@ -25,10 +25,22 @@ import {
     View,
 } from 'react-native'
 import {
+    StyleSheet,
     UnistylesRuntime,
-    createStyleSheet,
-    useStyles,
+    createUnistylesComponent,
 } from 'react-native-unistyles'
+
+const StyledTextInput = createUnistylesComponent(TextInput, (theme) => ({
+    placeholderTextColor: theme.colors.labelColor,
+    selectionColor: theme.colors.primary,
+}))
+
+const StyledActivityIndicator = createUnistylesComponent(
+    ActivityIndicator,
+    (theme) => ({
+        color: getContrastColor(theme.colors.primary as string),
+    })
+)
 
 const LoginForm = ({
     navigateHome,
@@ -41,7 +53,6 @@ const LoginForm = ({
     const ORIGINAL_ERROR_NO_CONNECTION = 'Network request failed'
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const { styles, theme } = useStyles(stylesheet)
     // No guest fallback is provided, so the guest session will be created correctly
     const { userKind, toggleUserKind } = React.useContext(UserKindContext)
     const [loading, setLoading] = useState(false)
@@ -179,17 +190,15 @@ const LoginForm = ({
                     <Text style={styles.userNameLabel}>
                         {t('login.username')}
                     </Text>
-                    <TextInput
+                    <StyledTextInput
                         style={styles.textInput}
-                        placeholderTextColor={theme.colors.labelColor}
                         defaultValue={username}
                         returnKeyType="next"
                         placeholder="abc1234"
                         onChangeText={(text) => {
-                            setUsername(text)
+                            setUsername(text as string)
                         }}
                         clearButtonMode="while-editing"
-                        selectionColor={theme.colors.primary}
                         autoCapitalize="none"
                         autoCorrect={false}
                         textContentType="oneTimeCode"
@@ -202,7 +211,6 @@ const LoginForm = ({
 
                     <TextInput
                         style={styles.textInput}
-                        placeholderTextColor={theme.colors.labelColor}
                         placeholder={t('login.password')}
                         defaultValue={password}
                         returnKeyType="done"
@@ -216,7 +224,6 @@ const LoginForm = ({
                                 })
                             }
                         }}
-                        selectionColor={theme.colors.primary}
                         selectTextOnFocus={true}
                         autoCapitalize="none"
                         secureTextEntry={true}
@@ -236,10 +243,7 @@ const LoginForm = ({
                     style={styles.loginButton(signInDisabled)}
                 >
                     {loading ? (
-                        <ActivityIndicator
-                            color={getContrastColor(theme.colors.primary)}
-                            size={15}
-                        />
+                        <StyledActivityIndicator size={15} />
                     ) : (
                         <Text style={styles.buttonText(signInDisabled)}>
                             {t('login.button')}
@@ -263,19 +267,19 @@ const LoginForm = ({
 }
 
 const black = '#000000'
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     buttonText: (disabled: boolean) => ({
         fontWeight: 'bold',
         fontSize: 15,
         color: disabled
             ? UnistylesRuntime.themeName === 'dark'
-                ? Color(getContrastColor(theme.colors.primary))
+                ? Color(getContrastColor(theme.colors.primary as string))
                       .lighten(0.1)
                       .hex()
-                : Color(getContrastColor(theme.colors.primary))
+                : Color(getContrastColor(theme.colors.primary as string))
                       .darken(0.1)
                       .hex()
-            : getContrastColor(theme.colors.primary),
+            : getContrastColor(theme.colors.primary as string),
     }),
     container: { alignItems: 'center', justifyContent: 'center' },
     guestContainer: {

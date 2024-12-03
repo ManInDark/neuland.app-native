@@ -5,18 +5,21 @@ import { sportsCategories } from '@/utils/events-utils'
 import { Buffer } from 'buffer/'
 import { router } from 'expo-router'
 import React from 'react'
-import { Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { type DimensionValue, Text, View } from 'react-native'
+import { StyleSheet, createUnistylesComponent } from 'react-native-unistyles'
 
 import PlatformIcon from '../Universal/Icon'
 import RowEntry from '../Universal/RowEntry'
 
+const StyledRowEntry = createUnistylesComponent(RowEntry, (theme) => ({
+    backgroundColor: theme.colors.card,
+    maxTitleWidth: '70%' as DimensionValue,
+}))
 const SportsRow = ({
     event,
 }: {
     event: UniversitySportsFieldsFragment
 }): JSX.Element => {
-    const { styles, theme } = useStyles(stylesheet)
     const onPressRow = (): void => {
         const base64Event = Buffer.from(JSON.stringify(event)).toString(
             'base64'
@@ -28,10 +31,9 @@ const SportsRow = ({
     }
     const dateRange = formatFriendlyTimeRange(event.startTime, event.endTime)
     return (
-        <RowEntry
+        <StyledRowEntry
             title={event.title[i18n.language as LanguageKey] ?? ''}
             onPress={onPressRow}
-            backgroundColor={theme.colors.card}
             leftChildren={
                 <>
                     <Text style={styles.leftText1} numberOfLines={1}>
@@ -64,12 +66,11 @@ const SportsRow = ({
                     style={styles.toggleIcon}
                 />
             }
-            maxTitleWidth={'70%'}
         />
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     leftText1: {
         color: theme.colors.labelColor,
         fontSize: 15,

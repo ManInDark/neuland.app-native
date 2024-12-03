@@ -3,7 +3,7 @@ import { formatFriendlyDateTimeRange } from '@/utils/date-utils'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import Divider from '../Universal/Divider'
 import SectionView from '../Universal/SectionsView'
@@ -15,7 +15,6 @@ const BookingFrame = ({
     item: AvailableRoomItem
     children: React.ReactNode
 }): JSX.Element => {
-    const { styles } = useStyles(stylesheet)
     const { t } = useTranslation('common')
 
     const availSeats = Object.values(item.resources).reduce(
@@ -57,7 +56,7 @@ const BookingFrame = ({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     dropdownContainer: {
         alignItems: 'center',
         flexDirection: 'row',

@@ -8,14 +8,9 @@ import * as Haptics from 'expo-haptics'
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform, Pressable, ScrollView, Text, View } from 'react-native'
-import {
-    UnistylesRuntime,
-    createStyleSheet,
-    useStyles,
-} from 'react-native-unistyles'
+import { StyleSheet, UnistylesRuntime } from 'react-native-unistyles'
 
 export default function Theme(): JSX.Element {
-    const { styles } = useStyles(stylesheet)
     const { accentColor = DEFAULT_ACCENT_COLOR, setAccentColor } =
         useContext(ThemeContext)
     const { t } = useTranslation(['settings'])
@@ -32,7 +27,6 @@ export default function Theme(): JSX.Element {
         color: ColorBoxColor
         code: string
     }): JSX.Element => {
-        const { styles } = useStyles(stylesheet)
         const themeAccentColor =
             UnistylesRuntime.themeName === 'dark' ? color.dark : color.light
         return (
@@ -96,7 +90,6 @@ export default function Theme(): JSX.Element {
     }
 
     const ColorBoxMatrix = ({ colors }: ColorBoxMatrixProps): JSX.Element => {
-        const { styles } = useStyles(stylesheet)
         return (
             <View style={styles.colorMatrixContainer}>
                 {colors.map((color, index) => (
@@ -137,7 +130,7 @@ export default function Theme(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     colorBox: {
         alignContent: 'center',
         alignItems: 'center',

@@ -13,7 +13,7 @@ import { useQuery } from '@tanstack/react-query'
 import React, { useContext, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Linking, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 export interface ITimetableViewProps {
     friendlyTimetable: FriendlyTimetableEntry[]
@@ -29,8 +29,6 @@ export const loadTimetable = async (): Promise<FriendlyTimetableEntry[]> => {
 }
 
 export default function TimetableScreen(): JSX.Element {
-    const { styles } = useStyles(stylesheet)
-
     const { timetableMode } = useContext(PreferencesContext)
 
     const { t } = useTranslation(['timetable'])
@@ -163,7 +161,7 @@ export default function TimetableScreen(): JSX.Element {
     return isPageOpen ? <TempList /> : <></>
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     loadingView: {
         alignItems: 'center',
         backgroundColor: theme.colors.background,

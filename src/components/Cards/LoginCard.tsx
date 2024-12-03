@@ -1,12 +1,11 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import BaseCard from './BaseCard'
 
 const LoginCard = (): JSX.Element => {
-    const { styles } = useStyles(stylesheet)
     const { t } = useTranslation('navigation')
     return (
         <BaseCard title="login" removable={false} onPressRoute="login">
@@ -24,7 +23,7 @@ const LoginCard = (): JSX.Element => {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     calendarView: {
         gap: 12,
         paddingTop: 10,

@@ -14,14 +14,13 @@ import { useTranslation } from 'react-i18next'
 import { Alert, Platform, Pressable, Text } from 'react-native'
 import ContextMenu from 'react-native-context-menu-view'
 import { getDeviceType } from 'react-native-device-info'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import LoadingIndicator from '../Universal/LoadingIndicator'
 
 export const IndexHeaderRight = (): JSX.Element => {
     const { t } = useTranslation(['navigation', 'settings'])
     const router = useRouter()
-    const { styles, theme } = useStyles(stylesheet)
 
     const { userKind = USER_GUEST } =
         useContext<UserKindContextType>(UserKindContext)
@@ -109,10 +108,7 @@ export const IndexHeaderRight = (): JSX.Element => {
                 {userKind === USER_EMPLOYEE ? (
                     <Avatar size={28}>
                         <Text
-                            style={{
-                                color: getContrastColor(theme.colors.primary),
-                                ...styles.iconText,
-                            }}
+                            style={styles.iconText}
                             numberOfLines={1}
                             adjustsFontSizeToFit={true}
                         >
@@ -148,10 +144,7 @@ export const IndexHeaderRight = (): JSX.Element => {
                 ) : initials !== '' || !showLoadingIndicator ? (
                     <Avatar size={28}>
                         <Text
-                            style={{
-                                color: getContrastColor(theme.colors.primary),
-                                ...styles.iconText,
-                            }}
+                            style={styles.iconText}
                             numberOfLines={1}
                             adjustsFontSizeToFit={true}
                         >
@@ -167,7 +160,7 @@ export const IndexHeaderRight = (): JSX.Element => {
 
     const MemoIcon = React.useMemo(
         () => <IconComponent />,
-        [userKind, initials, showLoadingIndicator, theme.colors]
+        [userKind, initials, showLoadingIndicator]
     )
     const PlatformMenu = ({
         children,
@@ -269,7 +262,7 @@ export const IndexHeaderRight = (): JSX.Element => {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     center: {
         alignItems: 'center',
         justifyContent: 'center',
@@ -278,6 +271,7 @@ const stylesheet = createStyleSheet((theme) => ({
         color: theme.colors.text,
     },
     iconText: {
+        color: getContrastColor(theme.colors.primary as string),
         fontSize: 13,
         fontWeight: 'bold',
     },

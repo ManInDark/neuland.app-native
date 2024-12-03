@@ -1,12 +1,11 @@
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Linking, Pressable, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import PlatformIcon from '../Universal/Icon'
 
 const AttributionLink: React.FC = () => {
-    const { styles } = useStyles(stylesheet)
     const { t } = useTranslation('common')
 
     return (
@@ -40,7 +39,7 @@ const AttributionLink: React.FC = () => {
 
 export default AttributionLink
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     attributionContainer: { paddingVertical: 40 },
     attributionLink: {
         alignItems: 'center',

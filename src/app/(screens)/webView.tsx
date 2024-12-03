@@ -1,8 +1,8 @@
 import { useLocalSearchParams, useNavigation } from 'expo-router'
 import React, { useLayoutEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { StyleSheet, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { View } from 'react-native'
+import { StyleSheet } from 'react-native-unistyles'
 import WebView from 'react-native-webview'
 import sanitizeHtml from 'sanitize-html'
 
@@ -17,15 +17,14 @@ export default function NotesDetails(): JSX.Element {
     const [loaded, setLoaded] = useState(false)
 
     const { t } = useTranslation('timetable')
-    const { styles, theme } = useStyles(stylesheet)
     const sanitizedHtml = sanitizeHtml(html ?? '')
     const styledHtml = `
     <html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
     <style>
     body {
         padding: ${PADDING}px;
-        color: ${theme.colors.text};
-        background-color: ${theme.colors.background};
+        color: ${styles.text.color};
+        background-color: ${styles.background.backgroundColor};
         font-family: --apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         font-size: 15px;
     }
@@ -54,9 +53,15 @@ export default function NotesDetails(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     container: {
         ...StyleSheet.absoluteFillObject,
+        backgroundColor: theme.colors.background,
+    },
+    text: {
+        color: theme.colors.text,
+    },
+    background: {
         backgroundColor: theme.colors.background,
     },
 }))

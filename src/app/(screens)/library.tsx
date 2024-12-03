@@ -33,10 +33,13 @@ import React, { useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { LayoutAnimation, RefreshControl, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet, createUnistylesComponent } from 'react-native-unistyles'
 
+const StyledDivider = createUnistylesComponent(Divider, (theme) => ({
+    color: theme.colors.labelColor,
+    iosPaddingLeft: 16,
+}))
 export default function LibrarySreen(): JSX.Element {
-    const { styles, theme } = useStyles(stylesheet)
     const { t } = useTranslation('common')
     const [expandedRow, setExpandedRow] = useState<string | null>(null)
 
@@ -337,13 +340,7 @@ export default function LibrarySreen(): JSX.Element {
                                                     {index !==
                                                         reservationsData.length -
                                                             1 && (
-                                                        <Divider
-                                                            color={
-                                                                theme.colors
-                                                                    .labelColor
-                                                            }
-                                                            iosPaddingLeft={16}
-                                                        />
+                                                        <StyledDivider />
                                                     )}
                                                 </React.Fragment>
                                             )
@@ -389,16 +386,7 @@ export default function LibrarySreen(): JSX.Element {
                                                                             .resource
                                                                             .length -
                                                                             1 && (
-                                                                        <Divider
-                                                                            color={
-                                                                                theme
-                                                                                    .colors
-                                                                                    .labelColor
-                                                                            }
-                                                                            iosPaddingLeft={
-                                                                                16
-                                                                            }
-                                                                        />
+                                                                        <StyledDivider />
                                                                     )}
                                                                 </React.Fragment>
                                                             )
@@ -458,7 +446,7 @@ export default function LibrarySreen(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     contentContainer: { paddingBottom: 32 },
     handleIndicatorStyle: {
         backgroundColor: theme.colors.labelSecondaryColor,

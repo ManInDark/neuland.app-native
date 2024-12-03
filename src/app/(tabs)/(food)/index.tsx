@@ -32,10 +32,9 @@ import {
     View,
 } from 'react-native'
 import PagerView from 'react-native-pager-view'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 export function FoodScreen(): JSX.Element {
-    const { styles } = useStyles(stylesheet)
     const [selectedDay, setSelectedDay] = useState<number>(0)
     const { selectedRestaurants, showStatic, allergenSelection } =
         useContext(FoodFilterContext)
@@ -101,7 +100,6 @@ export function FoodScreen(): JSX.Element {
         index: number
     }): JSX.Element => {
         const date = new Date(day.timestamp)
-        const { styles } = useStyles(stylesheet)
 
         const daysCnt = data != null ? (data.length < 5 ? data.length : 5) : 0
         const isFirstDay = index === 0
@@ -300,7 +298,7 @@ export default function FoodRootScreen(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     animtedContainer: {
         borderBottomColor: theme.colors.border,
         width: '100%',

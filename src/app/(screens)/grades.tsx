@@ -26,13 +26,13 @@ import {
     Text,
     View,
 } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import packageInfo from '../../../package.json'
 
 export default function GradesSCreen(): JSX.Element {
     const { t } = useTranslation('settings')
-    const { styles } = useStyles(stylesheet)
+
     const [gradeAverage, setGradeAverage] = useState<GradeAverage>()
 
     const [averageLoadingState, setAverageLoadingState] =
@@ -258,7 +258,7 @@ export default function GradesSCreen(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     averageContainer: {
         alignItems: 'flex-start',
         justifyContent: 'center',

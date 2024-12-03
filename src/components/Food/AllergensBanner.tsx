@@ -4,7 +4,7 @@ import { router } from 'expo-router'
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Animated, Text, TouchableOpacity, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import PlatformIcon from '../Universal/Icon'
 
@@ -15,7 +15,7 @@ export const AllergensBanner = ({
 }): JSX.Element => {
     const { t } = useTranslation('common')
     const { initAllergenSelection } = useContext(FoodFilterContext)
-    const { styles } = useStyles(stylesheet)
+
     return (
         <Animated.View
             style={{
@@ -69,7 +69,7 @@ export const AllergensBanner = ({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     bannerContainer: {
         backgroundColor: theme.colors.primary,
         borderRadius: theme.radius.md,

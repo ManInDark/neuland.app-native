@@ -12,11 +12,11 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Animated, View, useWindowDimensions } from 'react-native'
 import PagerView from 'react-native-pager-view'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 export default function Events(): JSX.Element {
     const { t } = useTranslation('common')
-    const { styles } = useStyles(stylesheet)
+
     const results = useQueries({
         queries: [
             {
@@ -100,7 +100,7 @@ export default function Events(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     page: {
         flex: 1,
         paddingVertical: theme.margins.page,

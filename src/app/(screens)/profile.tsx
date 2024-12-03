@@ -27,11 +27,11 @@ import {
     Text,
     View,
 } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 export default function Profile(): JSX.Element {
     const router = useRouter()
-    const { styles } = useStyles(stylesheet)
+
     const { toggleUserKind, userKind } = useContext(UserKindContext)
     const { resetOrder } = useContext(DashboardContext)
     const { t } = useTranslation('settings')
@@ -323,7 +323,7 @@ export default function Profile(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     container: {
         alignSelf: 'center',
         paddingHorizontal: theme.margins.page,

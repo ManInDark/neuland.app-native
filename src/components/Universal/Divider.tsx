@@ -4,10 +4,9 @@ import {
     type DimensionValue,
     type FlexAlignType,
     Platform,
-    StyleSheet,
     View,
 } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 interface DividerProps {
     width?: DimensionValue
@@ -29,8 +28,6 @@ const Divider: FC<DividerProps> = ({
     position,
     iosPaddingLeft,
 }) => {
-    const { styles } = useStyles(stylesheet)
-
     return (
         <View style={styles.container({ position, iosPaddingLeft })}>
             <View style={styles.line({ width, color })} />
@@ -38,7 +35,7 @@ const Divider: FC<DividerProps> = ({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     container: ({ position, iosPaddingLeft }) => ({
         width: '100%',
         alignSelf:

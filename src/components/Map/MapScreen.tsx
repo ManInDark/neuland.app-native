@@ -69,11 +69,7 @@ import Animated, {
     useSharedValue,
     withTiming,
 } from 'react-native-reanimated'
-import {
-    UnistylesRuntime,
-    createStyleSheet,
-    useStyles,
-} from 'react-native-unistyles'
+import { StyleSheet, UnistylesRuntime } from 'react-native-unistyles'
 
 import packageInfo from '../../../package.json'
 import LoadingIndicator from '../Universal/LoadingIndicator'
@@ -82,7 +78,6 @@ import { modalSection } from './ModalSections'
 const MapScreen = (): JSX.Element => {
     const navigation = useNavigation()
     const [mapLoadState, setMapLoadState] = useState(LoadingState.LOADING)
-    const { styles, theme } = useStyles(stylesheet)
     const isDark = UnistylesRuntime.themeName === 'dark'
     const params = useLocalSearchParams<{ room: string }>()
     const { userKind, userFaculty } = useContext(UserKindContext)
@@ -358,7 +353,7 @@ const MapScreen = (): JSX.Element => {
         )?.properties
 
         if (room == null) {
-            roomNotFoundToast(params.room, theme.colors.notification)
+            roomNotFoundToast(params.room, styles.notificaiton.color as string)
             router.setParams({ room: '' })
             return
         }
@@ -657,7 +652,7 @@ const MapScreen = (): JSX.Element => {
                 ? 'rgba(166, 173, 181, 0.70)'
                 : 'rgba(218, 218, 218, 0.70)',
             paddingHorizontal: 4,
-            borderRadius: theme.radius.sm,
+            borderRadius: 4,
         },
     }
 
@@ -716,7 +711,9 @@ const MapScreen = (): JSX.Element => {
                 <MapLibreGL.MapView
                     style={styles.map}
                     tintColor={
-                        Platform.OS === 'ios' ? theme.colors.primary : undefined
+                        Platform.OS === 'ios'
+                            ? styles.roomAvailabile.color
+                            : undefined
                     }
                     logoEnabled={false}
                     styleURL={
@@ -798,7 +795,7 @@ const MapScreen = (): JSX.Element => {
                                 // eslint-disable-next-line react-native/no-inline-styles
                                 style={{
                                     iconImage: 'map-marker',
-                                    iconColor: theme.colors.primary,
+                                    iconColor: styles.roomAvailabile.color,
                                     iconSize: 0.17,
                                     iconAnchor: 'bottom',
                                 }}
@@ -846,7 +843,7 @@ const MapScreen = (): JSX.Element => {
                                 id="availableRoomsFill"
                                 style={{
                                     ...layerStyles.availableRooms,
-                                    fillColor: theme.colors.primary,
+                                    fillColor: styles.roomAvailabile.color,
                                 }}
                                 layerIndex={102}
                             />
@@ -854,7 +851,7 @@ const MapScreen = (): JSX.Element => {
                                 id="availableRoomsOutline"
                                 style={{
                                     ...layerStyles.availableRoomsOutline,
-                                    lineColor: theme.colors.primary,
+                                    lineColor: styles.roomAvailabile.color,
                                 }}
                                 layerIndex={103}
                             />
@@ -920,9 +917,12 @@ const MapScreen = (): JSX.Element => {
 
 export default MapScreen
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     container: {
         flex: 1,
+    },
+    notificaiton: {
+        color: theme.colors.notification,
     },
     errorContainer: {
         backgroundColor: theme.colors.background,
@@ -945,5 +945,8 @@ const stylesheet = createStyleSheet((theme) => ({
         right: 0,
         top: -24,
         zIndex: 99,
+    },
+    roomAvailabile: {
+        color: theme.colors.primary,
     },
 }))

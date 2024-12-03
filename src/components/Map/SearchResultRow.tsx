@@ -6,7 +6,7 @@ import { TouchableOpacity } from '@gorhom/bottom-sheet'
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import PlatformIcon from '../Universal/Icon'
 
@@ -23,7 +23,7 @@ const ResultRow: React.FC<{
 }): JSX.Element => {
     const { setClickedElement, setLocalSearch, setCurrentFloor } =
         useContext(MapContext)
-    const { styles } = useStyles(stylesheet)
+
     const { i18n } = useTranslation()
     const roomTypeKey = i18n.language === 'de' ? 'Funktion_de' : 'Funktion_en'
     return (
@@ -76,7 +76,7 @@ const ResultRow: React.FC<{
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     flex: {
         flex: 1,
     },

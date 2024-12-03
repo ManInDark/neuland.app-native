@@ -15,11 +15,7 @@ import { useTranslation } from 'react-i18next'
 import { AppState, Platform, Pressable } from 'react-native'
 import DeviceInfo from 'react-native-device-info'
 import { SystemBars } from 'react-native-edge-to-edge'
-import {
-    UnistylesRuntime,
-    createStyleSheet,
-    useStyles,
-} from 'react-native-unistyles'
+import { StyleSheet, UnistylesRuntime } from 'react-native-unistyles'
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export const unstable_settings = {
@@ -29,7 +25,6 @@ function RootLayout(): JSX.Element {
     const router = useRouter()
     const { t } = useTranslation(['navigation'])
     const isPad = DeviceInfo.isTablet()
-
     useEffect(() => {
         if (isPad) {
             void ScreenOrientation.unlockAsync()
@@ -78,7 +73,7 @@ function RootLayout(): JSX.Element {
             subscription.remove()
         }
     }, [])
-    const { styles, theme } = useStyles(stylesheet)
+
     return (
         <>
             <Head>
@@ -102,7 +97,7 @@ function RootLayout(): JSX.Element {
                 screenOptions={{
                     contentStyle: styles.background,
                     headerStyle: styles.headerBackground,
-                    headerTintColor: theme.colors.primary,
+                    headerTintColor: styles.headerTintStyle.color,
                     headerTitleStyle: styles.headerTextStyle,
                 }}
             >
@@ -443,8 +438,9 @@ const ProviderComponent = (): JSX.Element => {
 }
 
 export default ProviderComponent
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     background: { backgroundColor: theme.colors.background },
     headerBackground: { backgroundColor: theme.colors.card },
     headerTextStyle: { color: theme.colors.text },
+    headerTintStyle: { color: theme.colors.primary },
 }))

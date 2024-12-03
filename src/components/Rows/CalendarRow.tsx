@@ -13,13 +13,13 @@ import { router } from 'expo-router'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import RowEntry from '../Universal/RowEntry'
 
 const CalendarRow = ({ event }: { event: Calendar }): JSX.Element => {
     const { t, i18n } = useTranslation('common')
-    const { styles } = useStyles(stylesheet)
+
     return (
         <RowEntry
             title={event.name[i18n.language as LanguageKey]}
@@ -56,7 +56,6 @@ const CalendarRow = ({ event }: { event: Calendar }): JSX.Element => {
 }
 
 const ExamRow = ({ event }: { event: Exam }): JSX.Element => {
-    const { styles } = useStyles(stylesheet)
     const base64Event = Buffer.from(JSON.stringify(event)).toString('base64')
     const navigateToPage = (): void => {
         router.push({
@@ -106,7 +105,7 @@ const ExamRow = ({ event }: { event: Exam }): JSX.Element => {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     leftText: {
         color: theme.colors.labelColor,
         fontSize: 13,

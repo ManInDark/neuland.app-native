@@ -8,10 +8,9 @@ import { router } from 'expo-router'
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Linking, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 const LinkScreen = (): JSX.Element => {
-    const { styles } = useStyles(stylesheet)
     const { t } = useTranslation('common')
     const { addRecentQuicklink } = useContext(PreferencesContext)
     const typedQuicklinks = quicklinks as Quicklink[]
@@ -64,7 +63,7 @@ const LinkScreen = (): JSX.Element => {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     formlistRow: { marginVertical: 13.5 },
     headerContainer: {
         alignItems: 'center',

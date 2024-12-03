@@ -9,11 +9,11 @@ import Head from 'expo-router/head'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 export default function MapRootScreen(): JSX.Element {
     const { t } = useTranslation(['navigation'])
-    const { styles } = useStyles(stylesheet)
+
     const [isPageOpen, setIsPageOpen] = useState(false)
     useEffect(() => {
         setIsPageOpen(true)
@@ -100,7 +100,7 @@ export default function MapRootScreen(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     page: {
         backgroundColor: theme.colors.background,
         flex: 1,

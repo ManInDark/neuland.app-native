@@ -1,7 +1,7 @@
 import Divider from '@/components/Universal/Divider'
 import React from 'react'
 import { Pressable, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import PlatformIcon from './Icon'
 
@@ -28,8 +28,6 @@ const MultiSectionPicker: React.FC<SectionPickerProps> = ({
     selectedItems,
     action,
 }) => {
-    const { styles } = useStyles(stylesheet)
-
     return (
         <>
             {elements.map((item, index) => (
@@ -38,10 +36,7 @@ const MultiSectionPicker: React.FC<SectionPickerProps> = ({
                         onPress={() => {
                             action(item.key)
                         }}
-                        style={({ pressed }) => [
-                            { opacity: pressed ? 0.8 : 1 },
-                            { padding: 8 },
-                        ]}
+                        style={{ padding: 8 }}
                     >
                         <View style={styles.container}>
                             <Text style={styles.text}>{item.title}</Text>
@@ -70,7 +65,7 @@ const MultiSectionPicker: React.FC<SectionPickerProps> = ({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     container: {
         alignItems: 'center',
         flexDirection: 'row',

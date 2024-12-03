@@ -6,10 +6,9 @@ import { type Changelog } from '@/types/data'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Linking, ScrollView, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 export default function Theme(): JSX.Element {
-    const { styles } = useStyles(stylesheet)
     const changelog = changelogData as Changelog
     const { t, i18n } = useTranslation(['settings'])
     const sorted: Changelog = {
@@ -72,7 +71,7 @@ export default function Theme(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     notesContainer: {
         alignSelf: 'center',
         flexDirection: 'row',

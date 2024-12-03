@@ -2,7 +2,7 @@ import { type MaterialIcon } from '@/types/material-icons'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import React from 'react'
 import { Platform, Text } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 import SweetSFSymbol from 'sweet-sfsymbols'
 import { type SystemName } from 'sweet-sfsymbols/build/SweetSFSymbols.types'
 
@@ -53,7 +53,6 @@ const PlatformIcon = ({
     ios,
     style,
 }: PlatformIconProps): JSX.Element => {
-    const { styles, theme } = useStyles(stylesheet)
     if (Platform.OS === 'ios') {
         return (ios.fallback ?? false) ? (
             <MaterialCommunityIcons
@@ -61,7 +60,7 @@ const PlatformIcon = ({
                     ios.name as typeof MaterialCommunityIcons.defaultProps.name
                 }
                 size={ios.size}
-                color={style?.color ?? theme.colors.primary}
+                color={style?.color ?? styles.defaultColor.color}
                 style={{
                     width: ios.size,
                     height: ios.size,
@@ -74,7 +73,7 @@ const PlatformIcon = ({
                 name={ios.name as SystemName}
                 size={ios.size}
                 colors={[
-                    style?.color ?? theme.colors.primary,
+                    style?.color ?? styles.defaultColor.color,
                     ...(ios.additionalColor != null
                         ? [ios.additionalColor]
                         : []),
@@ -98,7 +97,7 @@ const PlatformIcon = ({
                         : styles.androidIconFilled),
                     fontSize: android.size,
                     lineHeight: android.size,
-                    color: style?.color ?? theme.colors.primary,
+                    color: style?.color ?? styles.defaultColor.color,
                     ...style,
                 }}
             >
@@ -106,7 +105,7 @@ const PlatformIcon = ({
                     <MaterialCommunityIcons
                         name={android.name as any}
                         size={android.size}
-                        color={style?.color ?? theme.colors.primary}
+                        color={style?.color ?? styles.defaultColor.color}
                         style={{ ...styles.communityIcon, ...style }}
                     />
                 ) : (
@@ -123,7 +122,7 @@ const communityIcons: string[] = ['instagram', 'github']
 
 export type CommunityIcon = 'instagram' | 'github' | 'map-marker'
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     androidIcon: {
         paddingTop: 3,
     },
@@ -138,5 +137,8 @@ const stylesheet = createStyleSheet((theme) => ({
     },
     iosFallbackOffset: {
         marginRight: -2,
+    },
+    defaultColor: {
+        color: theme.colors.primary,
     },
 }))

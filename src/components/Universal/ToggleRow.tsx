@@ -1,6 +1,6 @@
 import React from 'react'
 import { Pressable, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 const ToggleRow = ({
     items,
@@ -11,7 +11,6 @@ const ToggleRow = ({
     selectedElement: number
     setSelectedElement: (element: number) => void
 }): JSX.Element => {
-    const { styles } = useStyles(stylesheet)
     return (
         <View style={styles.buttonRow}>
             {items.map((item, index) => {
@@ -39,7 +38,7 @@ const ToggleRow = ({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     buttonContainer: {
         alignItems: 'center',
         alignSelf: 'center',

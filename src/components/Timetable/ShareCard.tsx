@@ -6,7 +6,7 @@ import moment from 'moment'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet, createUnistylesComponent } from 'react-native-unistyles'
 
 import DetailsBody from './DetailsBody'
 import DetailsRow from './DetailsRow'
@@ -17,9 +17,11 @@ interface ShareCardProps {
     event: FriendlyTimetableEntry
 }
 
+const StyledLogoSvg = createUnistylesComponent(LogoSVG, (theme) => ({
+    color: theme.colors.text,
+    size: 24,
+}))
 export default function ShareCard({ event }: ShareCardProps): JSX.Element {
-    const { styles } = useStyles(stylesheet)
-
     const { t } = useTranslation('timetable')
 
     const startDate = new Date(event.startDate)
@@ -148,14 +150,14 @@ export default function ShareCard({ event }: ShareCardProps): JSX.Element {
             </DetailsRow>
 
             <View style={styles.waterMark}>
-                <LogoSVG size={24} />
+                <StyledLogoSvg />
                 <Text style={styles.waterMarkText}>{'Neuland Next'}</Text>
             </View>
         </View>
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     detailsContainer: {
         alignItems: 'center',
         display: 'flex',

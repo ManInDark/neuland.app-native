@@ -9,7 +9,7 @@ import { router } from 'expo-router'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import RowEntry from '../Universal/RowEntry'
 
@@ -18,7 +18,6 @@ const CLEventRow = ({
 }: {
     event: CampusLifeEventFieldsFragment
 }): JSX.Element => {
-    const { styles } = useStyles(stylesheet)
     const { t, i18n } = useTranslation('common')
     let begin = null
     if (event.startDateTime != null) {
@@ -71,7 +70,7 @@ const CLEventRow = ({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     leftText1: {
         color: theme.colors.labelColor,
         fontSize: 15,

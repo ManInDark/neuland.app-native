@@ -4,17 +4,13 @@ import {
 } from '@gorhom/bottom-sheet'
 import { BlurView } from 'expo-blur'
 import React from 'react'
-import { Platform, StyleSheet, View } from 'react-native'
-import {
-    UnistylesRuntime,
-    createStyleSheet,
-    useStyles,
-} from 'react-native-unistyles'
+import { Platform, View } from 'react-native'
+import { StyleSheet, UnistylesRuntime } from 'react-native-unistyles'
 
 export const BottomSheetRootBackground = (): JSX.Element => {
     const darkIos = 'rgba(39, 39, 39, 0.4)'
     const lightIos = 'rgba(255, 255, 255, 0.5)'
-    const { styles } = useStyles(stylesheet)
+
     const dark = UnistylesRuntime.themeName === 'dark'
     return Platform.OS === 'ios' ? (
         <View
@@ -47,7 +43,7 @@ export const renderBackdrop = (
     />
 )
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     bottomSheet: {
         ...StyleSheet.absoluteFillObject,
         backgroundColor: theme.colors.background,

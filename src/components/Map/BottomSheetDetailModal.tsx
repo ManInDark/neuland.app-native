@@ -11,7 +11,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { Linking, Platform, Pressable, Share, Text, View } from 'react-native'
 import { type SharedValue } from 'react-native-reanimated'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import FormList from '../Universal/FormList'
 import PlatformIcon from '../Universal/Icon'
@@ -36,7 +36,6 @@ const handleShareModal = (room: string): void => {
 }
 
 const ReportLink: React.FC = () => {
-    const { styles } = useStyles(stylesheet)
     const { t } = useTranslation('common')
 
     return (
@@ -81,7 +80,6 @@ export const BottomSheetDetailModal = ({
     roomData,
     modalSection,
 }: BottomSheetDetailModalProps): JSX.Element => {
-    const { styles } = useStyles(stylesheet)
     return (
         <BottomSheetModalProvider>
             <BottomSheetModal
@@ -153,7 +151,7 @@ export const BottomSheetDetailModal = ({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     buttonsContainer: { flexDirection: 'row', gap: 10, marginBottom: 3 },
     chevronIcon: {
         color: theme.colors.labelColor,

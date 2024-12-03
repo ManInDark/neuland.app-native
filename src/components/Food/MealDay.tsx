@@ -2,9 +2,9 @@ import PlatformIcon from '@/components/Universal/Icon'
 import { type Food, type Meal } from '@/types/neuland-api'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Pressable, type StyleSheet, Text, View } from 'react-native'
+import { Pressable, Text, View } from 'react-native'
 import Collapsible from 'react-native-collapsible'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import { MealEntry } from './MealEntry'
 
@@ -50,7 +50,6 @@ const MealCategory = ({
     }
     const { t } = useTranslation('food')
 
-    const { styles } = useStyles(stylesheet)
     return (
         <>
             <View key={category} style={styles.categoryContainerCollapsed}>
@@ -58,7 +57,6 @@ const MealCategory = ({
                     onPress={() => {
                         toggleCollapsed()
                     }}
-                    style={({ pressed }) => [{ opacity: pressed ? 0.8 : 1 }]}
                     hitSlop={{ top: 6, bottom: 6 }}
                 >
                     <View style={styles.categoryContainer}>
@@ -155,7 +153,7 @@ export const MealDay = ({
         restaurantName: string
         meals: Meal[]
         groupedMeals: Record<string, Meal[]>
-        styles: StyleSheet.NamedStyles<any>
+        styles: any
     }
 
     /**
@@ -184,7 +182,7 @@ export const MealDay = ({
         return null
     }
     const { t } = useTranslation('food')
-    const { styles } = useStyles(stylesheet)
+
     return isEmpty ? (
         <>
             <View style={styles.emptyContainer}>
@@ -221,7 +219,7 @@ export const MealDay = ({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     categoryContainer: {
         alignItems: 'center',
         flexDirection: 'row',

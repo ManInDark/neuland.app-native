@@ -9,7 +9,7 @@ import { type FeatureCollection } from 'geojson'
 import React, { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Pressable, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import Divider from '../Universal/Divider'
 import PlatformIcon from '../Universal/Icon'
@@ -25,7 +25,6 @@ const AvailableRoomsSuggestions: React.FC<AvailableRoomsSuggestionsProps> = ({
     allRooms,
     handlePresentModalPress,
 }) => {
-    const { styles, theme } = useStyles(stylesheet)
     const { t } = useTranslation('common')
     const { userKind = USER_GUEST } = useContext(UserKindContext)
     const {
@@ -89,7 +88,8 @@ const AvailableRoomsSuggestions: React.FC<AvailableRoomsSuggestionsProps> = ({
                                     if (details == null) {
                                         roomNotFoundToast(
                                             room.room,
-                                            theme.colors.notification
+                                            styles.notificationAlert
+                                                .color as string
                                         )
                                         return
                                     }
@@ -161,7 +161,7 @@ const AvailableRoomsSuggestions: React.FC<AvailableRoomsSuggestionsProps> = ({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     loadingMargin: {
         marginVertical: 30,
     },
@@ -172,9 +172,11 @@ const stylesheet = createStyleSheet((theme) => ({
         textAlign: 'center',
     },
     primaryContrast: {
-        color: getContrastColor(theme.colors.primary),
+        color: getContrastColor(theme.colors.primary as string),
     },
-
+    notificationAlert: {
+        color: theme.colors.notification,
+    },
     radiusBg: {
         backgroundColor: theme.colors.card,
         borderRadius: 14,

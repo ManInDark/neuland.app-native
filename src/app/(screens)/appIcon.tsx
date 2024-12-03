@@ -15,7 +15,7 @@ import {
 } from 'react-native'
 // @ts-expect-error cannot verify the type of this prop
 import AppIcon from 'react-native-dynamic-app-icon'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 let iconImages: Record<string, ImageProps> = {}
 
@@ -32,7 +32,6 @@ iconImages = {
 export const appIcons = Object.keys(iconImages)
 
 export default function AppIconPicker(): JSX.Element {
-    const { styles } = useStyles(stylesheet)
     const {
         appIcon = 'default',
         setAppIcon,
@@ -154,7 +153,7 @@ export default function AppIconPicker(): JSX.Element {
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     container: {
         alignSelf: 'center',
         paddingBottom: 50,

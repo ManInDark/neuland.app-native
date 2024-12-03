@@ -2,7 +2,7 @@ import { type AvailableRoomItem } from '@/types/thi-api'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Platform, Pressable, Text, View } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import LoadingIndicator from '../Universal/LoadingIndicator'
 
@@ -25,7 +25,7 @@ const BookButton: React.FC<BookingButtonProps> = ({
 }): JSX.Element => {
     const [reserve, setReserve] = useState(false)
     const { t } = useTranslation('common')
-    const { styles } = useStyles(stylesheet)
+
     return (
         <View style={styles.confirmContainer}>
             <Pressable
@@ -59,7 +59,7 @@ const BookButton: React.FC<BookingButtonProps> = ({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     bookButton: {
         alignItems: 'center',
         backgroundColor:

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Platform, Pressable } from 'react-native'
-import { createStyleSheet, useStyles } from 'react-native-unistyles'
+import { StyleSheet } from 'react-native-unistyles'
 
 import PlatformIcon from './Icon'
 
@@ -11,8 +11,6 @@ interface ShareButtonProps {
 export default function ShareHeaderButton({
     onPress,
 }: ShareButtonProps): JSX.Element {
-    const { styles } = useStyles(stylesheet)
-
     return (
         <Pressable
             onPress={() => {
@@ -36,7 +34,7 @@ export default function ShareHeaderButton({
     )
 }
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     icon: {
         ...Platform.select({
             android: {

@@ -15,9 +15,9 @@ import {
     withTiming,
 } from 'react-native-reanimated'
 import {
+    StyleSheet,
     UnistylesRuntime,
-    createStyleSheet,
-    useStyles,
+    createUnistylesComponent,
 } from 'react-native-unistyles'
 
 import AttributionLink from './AttributionLink'
@@ -27,6 +27,12 @@ import NextLectureSuggestion from './NextLectureSuggestion'
 import SearchHistory from './SearchHistory'
 import SearchResults from './SearchResuts'
 
+const StyledBottomSheetTextInput = createUnistylesComponent(
+    BottomSheetTextInput,
+    (theme) => ({
+        placeholderTextColor: theme.colors.labelColor,
+    })
+)
 interface MapBottomSheetProps {
     bottomSheetRef: React.RefObject<BottomSheet>
     currentPosition: SharedValue<number>
@@ -40,7 +46,6 @@ const MapBottomSheet: React.FC<MapBottomSheetProps> = ({
     handlePresentModalPress,
     allRooms,
 }) => {
-    const { styles, theme } = useStyles(stylesheet)
     const { t } = useTranslation('common')
     const { localSearch, setLocalSearch, searchHistory } =
         useContext(MapContext)
@@ -83,11 +88,10 @@ const MapBottomSheet: React.FC<MapBottomSheetProps> = ({
         >
             <BottomSheetView style={styles.page}>
                 <BottomSheetView style={styles.inputContainer}>
-                    <BottomSheetTextInput
+                    <StyledBottomSheetTextInput
                         ref={textInputRef}
                         style={styles.textInput}
                         placeholder={t('pages.map.search.hint')}
-                        placeholderTextColor={theme.colors.labelColor}
                         value={localSearch}
                         enablesReturnKeyAutomatically
                         clearButtonMode="always"
@@ -168,7 +172,7 @@ const MapBottomSheet: React.FC<MapBottomSheetProps> = ({
 
 export default MapBottomSheet
 
-const stylesheet = createStyleSheet((theme) => ({
+const styles = StyleSheet.create((theme) => ({
     cancelButton: {
         alignSelf: 'center',
         paddingLeft: 10,
